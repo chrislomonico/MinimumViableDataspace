@@ -1,0 +1,147 @@
+# Registration Service
+
+Registration Service is a component of a Dataspace Authority. In current version to support the [Minimum Viable Dataspace](https://github.com/eclipse-dataspaceconnector/MinimumViableDataspace) (MVD), the Dataspace Authority is centralised. In future versions, the Authority could also be partly or fully decentralized.
+
+Responsibilities of the Dataspace Authority in MVD:
+- Establishes a DID (Decentralized Identifier) defining the Dataspace.
+- Manages policies defining who is allowed to participate in the dataspace.
+- Manages enrollment process of the Dataspace participants.
+- Lists the DID of available Dataspace participants.
+
+## Deployment
+
+The Registration Service is deployed as a separate component in the Dataspace environment. Deployment workflows and artifacts are provided in the  [Minimum Viable Dataspace](https://github.com/eclipse-dataspaceconnector/MinimumViableDataspace) repository.
+
+## Identity
+
+The Registration Service endpoint can be resolved from the `did:web` document deployed for the Dataspace Authority.
+
+In future versions, the Registration Service endpoint will be resolved in a Self-Description Document whose URL is available in the the `did:web` document. This version uses a simplified process omitting the Self-Description Document.
+
+## Operations
+
+Operations supported by the Registration Service:
+- [Dataspace participant enrollment](#2-dataspace-participant-enrollment)
+- [Listing all Dataspace participants](#3-list-participants)
+
+Operations that will be supported in future versions of the Registration Service:
+- Dataspace participant offboarding
+- Blacklisting
+
+### 1. Distributed authorization sub-operation
+
+This sub-flow is used within the operations further in this document, for a service to authenticate and authorize requests from a Dataspace Participant.
+
+#### Participants
+
+1. A Participant A, which performs a request to Participant B. Participant A could be a company enrolled within a dataspace.
+2. A Participant B, which serves a request to Participant A, and needs to establish Participant A's credentials. Participant B could be a company enrolled within a dataspace, or the Dataspace Authority, depending on the flow.
+
+#### Overview
+
+Participant A needs to establish its identity and credentials in order to access a service from Participant B. Selecting and transporting Participant A's verifiable credentials in request headers would be too bulky and put too much logic in the client code. Therefore, Participant A sends it DID (in a JWS) and a bearer token, allowing Participant B to authenticate the request, and obtain Participant A's verifiable credentials from its Identity Hub.
+
+A DID JWS cannot be used by Participant B to authenticate itself to Participant A's Identity Hub, as endless recursion would ensue.
+
+#### Pre-conditions
+
+1. Participant A has deployed an Identity Hub service, and a DID Document containing the Identity Hub URL.
+2. The Participant A Identity Hub contains VCs that satisfy the Participant B's service access policy.
+
+#### Flow sequence
+
+![distributed-authorization](distributed-authorization.png)
+
+1. The Client for Participant A (which could be EDC, or any other application) sends a request to Participant B's API. The client needs access to Participant A's Private Key to sign a JWS. It also sends a time-limited bearer token granting access to its Identity Hub.
+2. Participant B retrieves the DID Document based on the DID URI contained in the JWS.
+3. Participant B authenticates the request by validating the JWS signature against the public key in the DID Document.
+4. Participant B finds Participant A's Identity Hub URL in the DID Document. It authorizes the request by obtaining VCs for Participant A at its Identity Hub, 
+   using the bearer token sent initially by Participant A.
+5. Participant A's Identity Hub verifies the bearer token validity.
+6. Participant A's Identity Hub returns Participant A's Verifiable Credentials.
+7. Participant B applies its access policy for the given service. This applies expiration dates and Certificate Revocation Lists to filter valid Verifiable 
+   Credentials, and rules specific to a given service. For example, the caller must be a dataspace participant (i.e. have a valid Verifiable Credential signed by the Dataspace Authority, that establishes its dataspace membership).
+8. Participant B returns the service response if the request was successfully authorized, otherwise, an error response. Depending on the flow, the response can be synchronously or asynchronously returned.
+
+### 2. Dataspace participant enrollment
+
+#### Participants
+
+1. Company1, an entity which intends to become a Dataspace participant
+2. The Dataspace Authority, which manages the enrollment process
+
+#### Overview
+
+A Client for Company1 initiates the enrollment process by resolving and contacting the enrollment API endpoint for the Dataspace Authority. The client could be e.g. a CLI utility.
+
+The Dataspace Authority enrollment service obtains Verifiable Credentials from Company1 to determine whether it meets enrollment policies. The enrollment service then issues a Verifiable Credential that establishes membership and pushes it to Company 1's Identity Hub, and stores membership and certificate information.
+
+In simple scenarios, enrollment could be fast and fully automated. However, in advanced scenarios, enrollment policies could require interactions with external systems, and even manual processes. Therefore, it is implemented asynchronously.
+
+#### Pre-conditions
+
+1. Company1 has deployed an Identity Hub service, and a DID Document containing the Identity Hub URL.
+2. Company1 knows the DID URL of the Dataspace it intends to join.
+3. The Company1 Identity Hub contains VCs that satisfy the Dataspace Authority enrollment policy. For example, it could be a credential signed by the German 
+   Government that establishes Company1 to be based in Germany, and a credential signed by Auditor1 that establishes Company1 to be ISO27001 certified.
+
+#### Post-conditions
+
+1. The Company1 Identity Hub contains a VC (X.509 certificate) signed by the Dataspace Authority, that establishes membership in Dataspace D. This is used by other participants to authorize requests from Company1.
+2. The Company1 DID URL is stored in the Registration Service Participants Store. This is used to serve participant requests.
+
+#### Flow sequence
+
+![dataspace-enrollment](dataspace-enrollment.png)
+
+1. The Client for Company1 initiates the enrollment process based on the Dataspace DID URL. It retrieves the DID Document, and parses it to retrieve Dataspace
+   enrollment HTTP endpoint.
+2. The client needs access to the Company1 Private Key to sign a JWS. The client sends an HTTP request to the Dataspace Authority enrollment endpoint. The
+   request is accepted for asynchronous processing.
+3. The Registration Service uses mentioned above [Distributed authorization sub-operation](#1-distributed-authorization-sub-operation) to authenticate the 
+   request...
+4. ... and retrieves credentials from Company1's Identity Hub.
+5. The Registration Service stores participant information in its store. This includes Company 1's DID URL.
+6. The Registration Service authorizes the request by applying the Dataspace enrollment policy on the obtained Verifiable Credentials.
+7. The Registration Service updates the status of the participant's membership indicating that the participant's onboarding is successful/failed.
+8. The Registration Service issues and signs a membership Verifiable Credential as an X.509 Certificate.
+9. The Registration Service sends the Verifiable Credential to Company1's Identity Hub for storage. It uses the Identity Hub bearer token (from the Distributed authorization
+   sub-flow) to authenticate the request.
+10. Company1's Identity Hub validates the bearer token and stores the membership Verifiable Credential.
+
+### 3. List participants
+
+#### Participants
+
+1. Company1, a Dataspace Participant with a Dataspace Connector (e.g. EDC application) that wants to discover IDS endpoints (e.g. in order to list contract offers)
+2. The Dataspace Authority, which manages the participant registry
+3. Company2, Company3, etc., Dataspace Participants
+
+#### Overview
+
+A typical EDC deployment caches contract offers from other participants in a federated catalog, so that users can quickly browse and negotiate contracts. To regularly retrieve offers, it regularly contacts the Dataspace Registry to refresh its list of Dataspace Participants, then obtains contract offers from each participants to refresh its cache.
+
+In this flow, the EDC for Company1 obtains a list of Dataspace Participants and resolves their IDS endpoints.
+
+#### Pre-conditions
+
+Participants are registered as (currently valid) Dataspace Participants
+
+#### Flow sequence
+
+![list-participants](list-participants.png)
+
+1. The EDC for Company1 determines the Dataspace Registry endpoint from the Dataspace DID Document.
+2. The EDC for Company1 issues a request to the Dataspace Registry, to list participants.
+3. The Registration Service uses mentioned above [Distributed authorization sub-operation](#1-distributed-authorization-sub-operation) to authenticate the 
+   request...
+4. ... and retrieves Verifiable Presentations from Company1's Identity Hub.
+5. The Registration Service authorizes the request by applying the Registry access policy on the obtained Verifiable Presentations. For example, the caller must be a valid
+   Dataspace Participant.
+6. The Registration Service obtains the list of Dataspace Participant DID URIs from its storage...
+7. ... and returns it synchronously to the caller (Company1 EDC).
+8. The EDC for Company1 iterates through the Participants' DID URIs, and retrieves the collection of their IDS endpoints from their DID Documents.
+
+## References
+
+- [Identity Hub in MVD](https://github.com/agera-edc/IdentityHub/blob/main/docs/developer/decision-records/2022-06-08-identity-hub/README.md)
