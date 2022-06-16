@@ -74,7 +74,7 @@ A DID JWS cannot be used by _Participant B_ to authenticate itself to _Participa
 
 A Client for _Company1_ initiates the enrollment process by resolving and contacting the enrollment API endpoint for the _Dataspace Authority_. (The client could be e.g. a CLI utility.)
 
-The Dataspace Authority enrollment service obtains Verifiable Credentials from Company1 to determine whether it meets enrollment policies. The enrollment service then issues a Verifiable Credential that establishes membership and pushes it to Company 1's Identity Hub, and stores membership and certificate information.
+_The Dataspace Authority_ enrollment service obtains Verifiable Credentials from _Company1_ to determine whether it meets enrollment policies. The enrollment service then issues a Verifiable Credential that establishes membership and pushes it to _Company 1's_ Identity Hub, and stores membership and certificate information.
 
 In simple scenarios, enrollment could be fast and fully automated. However, in advanced scenarios, enrollment policies could require interactions with external systems, and even manual processes. Therefore, it is implemented asynchronously.
 
