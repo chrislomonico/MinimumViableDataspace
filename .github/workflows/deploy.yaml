@@ -331,6 +331,8 @@ jobs:
           npm install -g newman
           deployment/seed-data.sh
         working-directory: .
+        env:
+          COMPANY_NAME: ${{ matrix.participant }}
 
       - name: 'Register participant'
         run: |
