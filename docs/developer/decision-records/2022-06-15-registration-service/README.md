@@ -132,7 +132,7 @@ Participants are registered as (currently valid) Dataspace Participants
 ![list-participants](list-participants.png)
 
 1. The EDC for Company1 determines the Dataspace Registry endpoint from the Dataspace DID Document.
-2. The EDC for Company1 issues a request to the Dataspace Registry, to list participants.
+2. The EDC for _Company1_ issues a request to the Dataspace Registry, to list participants.
 3. The Registration Service uses mentioned above [Distributed authorization sub-operation](#1-distributed-authorization-sub-operation) to authenticate the 
    request...
 4. ... and retrieves Verifiable Presentations from _Company1's_ Identity Hub.
