@@ -68,7 +68,7 @@ A DID JWS cannot be used by _Participant B_ to authenticate itself to _Participa
 #### Participants
 
 1. _Company1_, an entity which intends to become a Dataspace participant
-2. The Dataspace Authority, which manages the enrollment process
+2. _The Dataspace Authority_, which manages the enrollment process
 
 #### Overview
 
