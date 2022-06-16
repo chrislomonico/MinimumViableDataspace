@@ -94,7 +94,7 @@ In simple scenarios, enrollment could be fast and fully automated. However, in a
 
 ![dataspace-enrollment](dataspace-enrollment.png)
 
-1. The Client for Company1 initiates the enrollment process based on the Dataspace DID URL. It retrieves the DID Document, and parses it to retrieve Dataspace
+1. The Client for _Company1_ initiates the enrollment process based on the Dataspace DID URL. It retrieves the DID Document, and parses it to retrieve Dataspace
    enrollment HTTP endpoint.
 2. The client needs access to the Company1 Private Key to sign a JWS. The client sends an HTTP request to the Dataspace Authority enrollment endpoint. The
    request is accepted for asynchronous processing.
