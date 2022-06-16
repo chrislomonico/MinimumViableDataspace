@@ -100,7 +100,7 @@ In simple scenarios, enrollment could be fast and fully automated. However, in a
    request is accepted for asynchronous processing.
 3. The Registration Service uses mentioned above [Distributed authorization sub-operation](#1-distributed-authorization-sub-operation) to authenticate the 
    request...
-4. ... and retrieves credentials from Company1's Identity Hub.
+4. ... and retrieves credentials from _Company1's_ Identity Hub.
 5. The Registration Service stores participant information in its store. This includes Company 1's DID URL.
 6. The Registration Service authorizes the request by applying the Dataspace enrollment policy on the obtained Verifiable Credentials.
 7. The Registration Service updates the status of the participant's membership indicating that the participant's onboarding is successful/failed.
