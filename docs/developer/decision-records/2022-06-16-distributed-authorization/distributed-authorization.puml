@@ -21,7 +21,7 @@ group authorize request
     IDHUB -> IDHUB: Verify token
   end
   return Verifiable Credentials
-  B -> Auth: Get public key
+  B -> Auth: Get DID document (contains public key)
   B -> B: Verify VC using public key
   B -> B: Apply access policy
 end
