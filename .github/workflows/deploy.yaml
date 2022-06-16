@@ -332,7 +332,7 @@ jobs:
           deployment/seed-data.sh
         working-directory: .
         env:
-          COMPANY_NAME: ${{ matrix.participant }}
+          PROVIDER_COMPANY_NAME: ${{ matrix.participant }}
 
       - name: 'Register participant'
         run: |
@@ -414,6 +414,7 @@ jobs:
           CONSUMER_US_CONNECTOR_NAME=${{ needs.Deploy-Participants.outputs.company3_connector_name }}
           PROVIDER_ASSETS_STORAGE_ACCOUNT=${{ needs.Deploy-Participants.outputs.company1_assets_storage_account }}
           REGISTRATION_SERVICE_URL=${{ needs.Deploy-Dataspace.outputs.registration_service_url }}
+          PROVIDER_COMPANY_NAME=company1
           EOF
 
       - name: 'Publish env file'
