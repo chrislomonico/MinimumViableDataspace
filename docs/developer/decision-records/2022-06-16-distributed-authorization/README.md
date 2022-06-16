@@ -18,6 +18,7 @@ A DID JWS cannot be used by _Participant B_ to authenticate itself to _Participa
 
 1. _Participant A_ has deployed an Identity Hub service, and a DID Document containing the Identity Hub URL.
 2. The _Participant A_ Identity Hub contains VCs that satisfy the _Participant B's_ service access policy.
+2. The _Authority_ has deployed a DID Document allowing to retrieve the public key.
 
 ## Flow sequence
 
