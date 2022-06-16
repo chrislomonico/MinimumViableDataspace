@@ -140,7 +140,7 @@ Participants are registered as (currently valid) Dataspace Participants
    Dataspace Participant.
 6. The Registration Service obtains the list of Dataspace Participant DID URIs from its storage...
 7. ... and returns it synchronously to the caller (Company1 EDC).
-8. The EDC for Company1 iterates through the Participants' DID URIs, and retrieves the collection of their IDS endpoints from their DID Documents.
+8. The EDC for _Company1_ iterates through the Participants' DID URIs, and retrieves the collection of their IDS endpoints from their DID Documents.
 
 ## References
 
