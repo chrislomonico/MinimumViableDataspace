@@ -54,7 +54,7 @@ A DID JWS cannot be used by _Participant B_ to authenticate itself to _Participa
 
 1. The Client for _Participant A_ (which could be EDC, or any other application) sends a request to _Participant B's_ API. The client needs access to _Participant A's_ Private Key to sign a JWS. It also sends a time-limited bearer token granting access to its Identity Hub.
 2. _Participant B_ retrieves the DID Document based on the DID URI contained in the JWS.
-3. Participant B authenticates the request by validating the JWS signature against the public key in the DID Document.
+3. _Participant B_ authenticates the request by validating the JWS signature against the public key in the DID Document.
 4. Participant B finds Participant A's Identity Hub URL in the DID Document. It authorizes the request by obtaining VCs for Participant A at its Identity Hub, 
    using the bearer token sent initially by Participant A.
 5. Participant A's Identity Hub verifies the bearer token validity.
