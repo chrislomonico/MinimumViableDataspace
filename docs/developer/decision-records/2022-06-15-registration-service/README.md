@@ -59,7 +59,7 @@ A DID JWS cannot be used by _Participant B_ to authenticate itself to _Participa
    using the bearer token sent initially by _Participant A._
 5. _Participant A's_ Identity Hub verifies the bearer token validity.
 6. _Participant A's_ Identity Hub returns Participant A's Verifiable Credentials.
-7. Participant B applies its access policy for the given service. This applies expiration dates and Certificate Revocation Lists to filter valid Verifiable 
+7. _Participant B_ applies its access policy for the given service. This applies expiration dates and Certificate Revocation Lists to filter valid Verifiable 
    Credentials, and rules specific to a given service. For example, the caller must be a dataspace participant (i.e. have a valid Verifiable Credential signed by the Dataspace Authority, that establishes its dataspace membership).
 8. Participant B returns the service response if the request was successfully authorized, otherwise, an error response. Depending on the flow, the response can be synchronously or asynchronously returned.
 
