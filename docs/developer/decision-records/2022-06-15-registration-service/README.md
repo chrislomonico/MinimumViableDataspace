@@ -1,6 +1,6 @@
 # Registration Service
 
-Registration Service is a component of a Dataspace Authority. In current version to support the [Minimum Viable Dataspace](https://github.com/eclipse-dataspaceconnector/MinimumViableDataspace) (MVD), the Dataspace Authority is centralised. In future versions, the Authority could also be partly or fully decentralized.
+Registration Service is a component of a Dataspace Authority. In the current version, the Dataspace Authority is centralized to support the [Minimum Viable Dataspace](https://github.com/eclipse-dataspaceconnector/MinimumViableDataspace) (MVD). In future versions, the Authority could also be partly or fully decentralized.
 
 Responsibilities of the Dataspace Authority in MVD:
 - Establishes a DID (Decentralized Identifier) defining the Dataspace.
