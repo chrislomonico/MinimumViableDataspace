@@ -2,23 +2,24 @@
 
 This sub-flow is used for a service to authenticate and authorize requests from a Dataspace Participant.
 
-#### Participants
+## Participants
 
 1. _Participant A_, which performs a request to _Participant B_. (_Participant A_ could be a company enrolled within a dataspace.)
 2. _Participant B_, which serves a request to _Participant A_, and needs to establish _Participant A's_ credentials. (_Participant B_ could be a company enrolled within a dataspace, or the Dataspace Authority, depending on the flow.)
+2. _Authority_, which is an issuer of Verifiable Credentials of _Participant A_. (_Authority_ can be e.g. external Gaia-X Central Authority or Dataspace Authority, depending on the flow.) 
 
-#### Overview
+## Overview
 
 _Participant A_ needs to establish its identity and credentials in order to access a service from _Participant B_. Selecting and transporting _Participant A's_ verifiable credentials in request headers would be too bulky and put too much logic in the client code. Therefore, _Participant A_ sends it's DID (in a JWS) and a bearer token, allowing _Participant B_ to authenticate the request, and obtain _Participant A's_ verifiable credentials from its Identity Hub.
 
 A DID JWS cannot be used by _Participant B_ to authenticate itself to _Participant A's_ Identity Hub, as endless recursion would ensue.
 
-#### Pre-conditions
+## Pre-conditions
 
 1. _Participant A_ has deployed an Identity Hub service, and a DID Document containing the Identity Hub URL.
 2. The _Participant A_ Identity Hub contains VCs that satisfy the _Participant B's_ service access policy.
 
-#### Flow sequence
+## Flow sequence
 
 ![distributed-authorization](distributed-authorization.png)
 
@@ -33,3 +34,4 @@ A DID JWS cannot be used by _Participant B_ to authenticate itself to _Participa
 8. _Participant B_ validates the VC signature against the public key in the DID Document.
 9. _Participant B_ applies its access policy for the given service. This applies rules specific to a given service. For example, the caller must be a dataspace participant (i.e. have a valid Verifiable Credential signed by the Dataspace Authority, that establishes its dataspace membership).
 10. _Participant B_ returns the service response if the request was successfully authorized, otherwise, an error response. Depending on the flow, the response can be synchronously or asynchronously returned.
+
