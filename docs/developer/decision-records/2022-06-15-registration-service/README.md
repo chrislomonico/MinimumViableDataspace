@@ -139,7 +139,7 @@ Participants are registered as (currently valid) Dataspace Participants
 5. The Registration Service authorizes the request by applying the Registry access policy on the obtained Verifiable Presentations. For example, the caller must be a valid
    Dataspace Participant.
 6. The Registration Service obtains the list of Dataspace Participant DID URIs from its storage...
-7. ... and returns it synchronously to the caller (Company1 EDC).
+7. ... and returns it synchronously to the caller (_Company1_ EDC).
 8. The EDC for _Company1_ iterates through the Participants' DID URIs, and retrieves the collection of their IDS endpoints from their DID Documents.
 
 ## References
