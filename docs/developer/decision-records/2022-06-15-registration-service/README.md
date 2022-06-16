@@ -83,7 +83,7 @@ In simple scenarios, enrollment could be fast and fully automated. However, in a
 1. _Company1_ has deployed an Identity Hub service, and a DID Document containing the Identity Hub URL.
 2. _Company1_ knows the DID URL of the Dataspace it intends to join.
 3. The _Company1_ Identity Hub contains VCs that satisfy _the Dataspace Authority_ enrollment policy. For example, it could be a credential signed by the German 
-   Government that establishes Company1 to be based in Germany, and a credential signed by Auditor1 that establishes Company1 to be ISO27001 certified.
+   Government that establishes _Company1_ to be based in Germany, and a credential signed by _Auditor1_ that establishes _Company1_ to be **ISO27001** certified.
 
 #### Post-conditions
 
