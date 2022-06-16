@@ -135,7 +135,7 @@ Participants are registered as (currently valid) Dataspace Participants
 2. The EDC for Company1 issues a request to the Dataspace Registry, to list participants.
 3. The Registration Service uses mentioned above [Distributed authorization sub-operation](#1-distributed-authorization-sub-operation) to authenticate the 
    request...
-4. ... and retrieves Verifiable Presentations from Company1's Identity Hub.
+4. ... and retrieves Verifiable Presentations from _Company1's_ Identity Hub.
 5. The Registration Service authorizes the request by applying the Registry access policy on the obtained Verifiable Presentations. For example, the caller must be a valid
    Dataspace Participant.
 6. The Registration Service obtains the list of Dataspace Participant DID URIs from its storage...
