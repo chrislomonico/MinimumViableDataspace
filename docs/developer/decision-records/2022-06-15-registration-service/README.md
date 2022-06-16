@@ -105,7 +105,7 @@ In simple scenarios, enrollment could be fast and fully automated. However, in a
 6. The Registration Service authorizes the request by applying the Dataspace enrollment policy on the obtained Verifiable Credentials.
 7. The Registration Service updates the status of the participant's membership indicating that the participant's onboarding is successful/failed.
 8. The Registration Service issues and signs a membership Verifiable Credential as an X.509 Certificate.
-9. The Registration Service sends the Verifiable Credential to Company1's Identity Hub for storage. It uses the Identity Hub bearer token (from the Distributed authorization
+9. The Registration Service sends the Verifiable Credential to _Company1's_ Identity Hub for storage. It uses the Identity Hub bearer token (from the Distributed authorization
    sub-flow) to authenticate the request.
 10. Company1's Identity Hub validates the bearer token and stores the membership Verifiable Credential.
 
