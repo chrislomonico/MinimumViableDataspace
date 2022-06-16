@@ -113,7 +113,7 @@ In simple scenarios, enrollment could be fast and fully automated. However, in a
 
 #### Participants
 
-1. Company1, a Dataspace Participant with a Dataspace Connector (e.g. EDC application) that wants to discover IDS endpoints (e.g. in order to list contract offers)
+1. _Company1_, a Dataspace Participant with a Dataspace Connector (e.g. EDC application) that wants to discover IDS endpoints (e.g. in order to list contract offers)
 2. The Dataspace Authority, which manages the participant registry
 3. Company2, Company3, etc., Dataspace Participants
 
