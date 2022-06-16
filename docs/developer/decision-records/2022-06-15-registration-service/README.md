@@ -107,7 +107,7 @@ In simple scenarios, enrollment could be fast and fully automated. However, in a
 8. The Registration Service issues and signs a membership Verifiable Credential as an X.509 Certificate.
 9. The Registration Service sends the Verifiable Credential to _Company1's_ Identity Hub for storage. It uses the Identity Hub bearer token (from the Distributed authorization
    sub-flow) to authenticate the request.
-10. Company1's Identity Hub validates the bearer token and stores the membership Verifiable Credential.
+10. _Company1's_ Identity Hub validates the bearer token and stores the membership Verifiable Credential.
 
 ### 3. List participants
 
