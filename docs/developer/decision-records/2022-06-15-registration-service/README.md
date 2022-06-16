@@ -41,7 +41,7 @@ This sub-flow is used within the operations further in this document, for a serv
 
 _Participant A_ needs to establish its identity and credentials in order to access a service from _Participant B_. Selecting and transporting _Participant A's_ verifiable credentials in request headers would be too bulky and put too much logic in the client code. Therefore, _Participant A_ sends it's DID (in a JWS) and a bearer token, allowing _Participant B_ to authenticate the request, and obtain _Participant A's_ verifiable credentials from its Identity Hub.
 
-A DID JWS cannot be used by Participant B to authenticate itself to Participant A's Identity Hub, as endless recursion would ensue.
+A DID JWS cannot be used by _Participant B_ to authenticate itself to _Participant A's_ Identity Hub, as endless recursion would ensue.
 
 #### Pre-conditions
 
