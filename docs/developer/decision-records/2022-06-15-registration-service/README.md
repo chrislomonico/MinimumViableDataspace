@@ -35,7 +35,7 @@ This sub-flow is used within the operations further in this document, for a serv
 #### Participants
 
 1. _Participant A_, which performs a request to _Participant B_. (_Participant A_ could be a company enrolled within a dataspace.)
-2. A Participant B, which serves a request to Participant A, and needs to establish Participant A's credentials. Participant B could be a company enrolled within a dataspace, or the Dataspace Authority, depending on the flow.
+2. _Participant B_, which serves a request to _Participant A_, and needs to establish _Participant A's_ credentials. (_Participant B_ could be a company enrolled within a dataspace, or the Dataspace Authority, depending on the flow.)
 
 #### Overview
 
