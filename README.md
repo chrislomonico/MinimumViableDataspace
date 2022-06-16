@@ -1,6 +1,6 @@
 # MinimumViableDataspace
 
-Temporary repository to get started with the MinimumViableDataspace
+Repository to spin up your own dataspace.
 
 ## Set up your own MinimumViableDataspace fork repository
 
