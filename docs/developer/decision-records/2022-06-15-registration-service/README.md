@@ -87,7 +87,7 @@ In simple scenarios, enrollment could be fast and fully automated. However, in a
 
 #### Post-conditions
 
-1. The Company1 Identity Hub contains a VC (X.509 certificate) signed by the Dataspace Authority, that establishes membership in Dataspace D. This is used by other participants to authorize requests from Company1.
+1. The _Company1_ Identity Hub contains a VC (X.509 certificate) signed by _the Dataspace Authority_, that establishes membership in _Dataspace D_. This is used by other participants to authorize requests from _Company1_.
 2. The Company1 DID URL is stored in the Registration Service Participants Store. This is used to serve participant requests.
 
 #### Flow sequence
