@@ -98,7 +98,7 @@ Participants are registered as (currently valid) Dataspace Participants
 
 1. The EDC for _Company1_ determines the Dataspace Registry endpoint from the Dataspace DID Document.
 2. The EDC for _Company1_ issues a request to the Dataspace Registry, to list participants.
-3. The Registration Service uses mentioned above [Distributed authorization sub-flow](../2022-06-16-distributed-authorization/README.md) to authenticate the 
+3. The Registration Service uses the [Distributed authorization sub-flow](../2022-06-16-distributed-authorization/README.md) (mentioned above) to authenticate the 
    request...
 4. ... and retrieves Verifiable Presentations from _Company1's_ Identity Hub.
 5. The Registration Service authorizes the request by applying the Registry access policy on the obtained Verifiable Presentations. For example, the caller must be a valid
