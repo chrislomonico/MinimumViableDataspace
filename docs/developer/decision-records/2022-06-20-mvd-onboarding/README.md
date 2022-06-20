@@ -1,6 +1,6 @@
 # Participants onboarding in MVD dataspace
 
-This document presents the infrastructure steps for the scenario to onboard participants in the dataspace.
+This document outlines the infrastructure steps for the scenario of including participants in the data space.
 
 ## Precondition - GAIA-X membership
 
@@ -12,7 +12,7 @@ During the onboarding process the GAIA-X membership claim is being verified by t
 The onboarding flow is presented in the [distributed authorisation sub-flow doc](https://github.com/agera-edc/MinimumViableDataspace/tree/feature/20-rs-adr-target/docs/developer/decision-records/2022-06-16-distributed-authorization).
 Actors in the onboarding scenario:
 - _Participant A_ is a participant that wants to join the MVD dataspace.
-- _Participant B_ is the MVD Dataspace Authority (Registration Service and it's `did:web' document).
+- _Participant B_ is the MVD Dataspace Authority (Registration Service and it's `did:web` document).
 - _Authority_ is the GAIA-X Authority.
 
 ## Infrastructure
@@ -25,4 +25,4 @@ To enable above precondition and onboarding scenario in MVD, the following steps
    GAIA-X membership Verifiable Credentials. 
 4. IdentityHub CLI will be implemented and made available in the IdentityHub repository. Then it will be used in the CD workflow to populate 
    participant's Identity Hub with GAIA-X membership Verifiable Credentials.
-5. The Registration Service will be configured with the GAIA-X DID in the CD workflow.
+5. The Registration Service will be configured with the GAIA-X DID url in the CD workflow.
