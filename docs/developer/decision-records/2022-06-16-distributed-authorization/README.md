@@ -28,7 +28,7 @@ A DID JWS cannot be used by _Participant B_ to authenticate itself to _Participa
 2. _Participant B_ retrieves the DID Document based on the DID URI contained in the JWS.
 3. _Participant B_ authenticates the request by validating the JWS signature against the public key in the DID Document.
 4. _Participant B_ finds Participant A's Identity Hub URL in the DID Document and retrieves Verifiable Presentation containing Verifiable Credentials from 
-   _Participant's A_ Identity Hub.
+   _Participant's A_ Identity Hub. (In future versions Identity Hub will perform authentication using bearer token sent from _Participant B_.)
 5. _Participant B_ retrieves the DID Document of the Participant A's Verifiable Credentials issuer.
 6. _Participant B_ validates the VC signature against the public key in the DID Document.
 7. _Participant B_ applies its access policy for the given service. This applies rules specific to a given service. For example, the caller must be a dataspace participant (i.e. have a valid Verifiable Credential signed by the Dataspace Authority, that establishes its dataspace membership).
