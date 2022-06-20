@@ -11,7 +11,7 @@ end box
 box "Authority"
 Participant "Authority\nDID Document" as Auth
 end box
-ParticipantA -> B ++: Request:\n - DID JWS\n - Hub Token
+ParticipantA -> B ++: Request:\n - DID JWS
 activate ParticipantA
 group authorize request
   B -> DID: Get DID Document (contains Identity Hub URL)
