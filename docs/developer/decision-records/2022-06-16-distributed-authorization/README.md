@@ -27,12 +27,10 @@ A DID JWS cannot be used by _Participant B_ to authenticate itself to _Participa
 1. The Client for _Participant A_ (which could be EDC, or any other application) sends a request to _Participant B's_ API. The client needs access to _Participant A's_ Private Key to sign a JWS. It also sends a time-limited bearer token granting access to its Identity Hub.
 2. _Participant B_ retrieves the DID Document based on the DID URI contained in the JWS.
 3. _Participant B_ authenticates the request by validating the JWS signature against the public key in the DID Document.
-4. _Participant B_ finds Participant A's Identity Hub URL in the DID Document. It authorizes the request by obtaining VCs for _Participant A_ at its Identity Hub, 
-   using the bearer token sent initially by _Participant A._
-5. _Participant A's_ Identity Hub verifies the bearer token validity.
-6. _Participant A's_ Identity Hub returns Participant A's Verifiable Presentation containing Verifiable Credentials.
-7. _Participant B_ retrieves the DID Document of the Participant A's Verifiable Credentials issuer.
-8. _Participant B_ validates the VC signature against the public key in the DID Document.
-9. _Participant B_ applies its access policy for the given service. This applies rules specific to a given service. For example, the caller must be a dataspace participant (i.e. have a valid Verifiable Credential signed by the Dataspace Authority, that establishes its dataspace membership).
-10. _Participant B_ returns the service response if the request was successfully authorized, otherwise, an error response. Depending on the flow, the response can be synchronously or asynchronously returned.
+4. _Participant B_ finds Participant A's Identity Hub URL in the DID Document and retrieves Verifiable Presentation containing Verifiable Credentials from 
+   _Participant's A_ Identity Hub.
+5. _Participant B_ retrieves the DID Document of the Participant A's Verifiable Credentials issuer.
+6. _Participant B_ validates the VC signature against the public key in the DID Document.
+7. _Participant B_ applies its access policy for the given service. This applies rules specific to a given service. For example, the caller must be a dataspace participant (i.e. have a valid Verifiable Credential signed by the Dataspace Authority, that establishes its dataspace membership).
+8. _Participant B_ returns the service response if the request was successfully authorized, otherwise, an error response. Depending on the flow, the response can be synchronously or asynchronously returned.
 

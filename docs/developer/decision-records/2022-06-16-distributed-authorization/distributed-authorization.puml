@@ -16,11 +16,7 @@ activate ParticipantA
 group authorize request
   B -> DID: Get DID Document (contains Identity Hub URL)
   B -> B: Verify JWS using public key
-  B -> IDHUB ++: Get credentials:\n - Hub Token
-  group authorize request
-    IDHUB -> IDHUB: Verify token
-  end
-  return Verifiable Credentials
+  B -> IDHUB: Get Verifiable Credentials
   B -> Auth: Get DID document (contains public key)
   B -> B: Verify VC using public key
   B -> B: Apply access policy
