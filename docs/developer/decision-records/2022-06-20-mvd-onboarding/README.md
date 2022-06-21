@@ -30,7 +30,6 @@ To enable above precondition and onboarding scenario in MVD, the following steps
    membership Verifiable Credentials.
 5. A CLI client for the Registration Service will be implemented. It will be used in the MVD deployment workflow to start the participant onboarding process. The CLI
    client can also be used locally to onboard additional participants.
-6. The Registration Service will be configured at deployment with the environment variable pointing to GAIA-X Authority DID URL.
-7. The Registration Service will be configured with a policy, that requires a GAIA-X membership Verifiable Credential issued by the GAIA-X 
-   Authority to verify participant's GAIA-X membership.
+6. The Registration Service will be configured at deployment with the environment variable pointing to GAIA-X Authority DID URL. This is required because each deployment will have a different URL for the GAIA-X Authority.
+7. The Registration Service will be configured with a policy, that requires a GAIA-X membership Verifiable Credential issued by the GAIA-X Authority to verify participant's GAIA-X membership.
 
