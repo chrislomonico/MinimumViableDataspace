@@ -1,6 +1,6 @@
 # Participants onboarding in MVD
 
-This document outlines the infrastructure steps for the scenario of including participants in the Minimum Viable Dataspace (MVD).
+This document outlines the infrastructure steps for the scenario of onboarding participants to the Minimum Viable Dataspace (MVD).
 
 ## Precondition - GAIA-X membership
 
