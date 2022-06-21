@@ -4,7 +4,7 @@ This document outlines the infrastructure steps for the scenario of onboarding p
 
 ## Precondition - GAIA-X membership
 
-To join the MVD, participants must have Verifiable Credentials signed by GAIA-X Authority which prove GAIA-X membership.
+To join the MVD, each participant must have a Verifiable Credential (VC) signed by GAIA-X Authority which proves GAIA-X membership.
 
 At present the MVD deployment pipeline does not interact with the real GAIA-X Authority. A simulated GAIA-X Authority is deployed within MVD for demonstration purposes.
 
