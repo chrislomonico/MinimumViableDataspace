@@ -22,11 +22,15 @@ Actors in the onboarding scenario:
 
 To enable above precondition and onboarding scenario in MVD, the following steps need to be implemented in the MVD infrastructure: 
 
-1. The CD workflow will generate the private and public keys for GAIA-X Authority.
-2. The CD workflow will deploy the GAIA-X Authority DID document containing the public key.
-3. The GAIA-X private key will be published as Github artifact so that it can be used in the participant deployment workflow to generate GAIA-X membership Verifiable Credentials. 
-4. A CLI client for IdentityHub will be developed. It will be used in the MVD deployment workflow to populate the participant's Identity Hub with GAIA-X membership Verifiable Credentials.
-5. The Registration Service will be configured with the simulated GAIA-X Authority DID URL in the CD workflow.
-6. A CLI client for the Registration Service will be developed. It will be used in the MVD deployment workflow to start the participant onboarding process. The CLI client can also be used locally to onboard additional participants. The CLI client needs access to the participant's DID private key on the local file system.
-7. The Registration Service will be configured with a enrollment policy, that requires a GAIA-X membership Verifiable Credential issued by the simulated GAIA-X Authority DID.
+1. The MVD deployment workflow will generate the private and public keys for GAIA-X Authority.
+2. The MVD deployment workflow will deploy the GAIA-X Authority DID document containing the public key.
+3. The GAIA-X private key will be used in the participant deployment workflow to generate GAIA-X membership Verifiable Credentials. Additionally, 
+   it will be published as Github artifact so that it can be used locally to onboard additional participants.
+4. A CLI client for IdentityHub will be implemented. It will be used in the MVD deployment workflow to populate the participant's Identity Hub with GAIA-X 
+   membership Verifiable Credentials.
+5. A CLI client for the Registration Service will be implemented. It will be used in the MVD deployment workflow to start the participant onboarding process. The CLI
+   client can also be used locally to onboard additional participants.
+6. The Registration Service will be configured at deployment with the environment variable pointing to GAIA-X Authority DID URL.
+7. The Registration Service will be configured with a policy, that requires a GAIA-X membership Verifiable Credential issued by the GAIA-X 
+   Authority to verify participant's GAIA-X membership.
 
