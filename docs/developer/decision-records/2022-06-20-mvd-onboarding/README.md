@@ -12,7 +12,7 @@ for demonstration purposes.
 ## Onboarding process - GAIA-X membership verification
 
 During the onboarding process, the GAIA-X membership claim is verified by the Dataspace Authority.
-The onboarding flow is presented in the [distributed authorisation sub-flow document](https://github.com/agera-edc/MinimumViableDataspace/tree/feature/20-rs-adr-target/docs/developer/decision-records/2022-06-16-distributed-authorization).
+The onboarding flow is presented in the [distributed authorisation sub-flow document](../2022-06-16-distributed-authorization/README.md).
 Actors in the onboarding scenario:
 
 - _Participant A_ is a putative participant that wants to join the MVD.
