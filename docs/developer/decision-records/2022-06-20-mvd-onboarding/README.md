@@ -16,7 +16,7 @@ The onboarding flow is presented in the [distributed authorisation sub-flow docu
 Actors in the onboarding scenario:
 
 - _Participant A_ is a putative participant that wants to join the MVD.
-- _Participant B_ is the Dataspace Authority (Registration Service and its `did:web` document).
+- _Participant B_ is the Registration Service with its `did:web` document.
 - _Authority_ is the simulated GAIA-X Authority.
 
 ## Infrastructure
