@@ -27,8 +27,8 @@ To enable above precondition and onboarding scenario in MVD, the following steps
 2. The MVD deployment workflow will deploy the GAIA-X Authority DID document containing the public key. For the simplicity the GAIA-X Authority DID document 
    is deployed together with other Dataspace components, which means that each deployed Dataspace will have its own GAIA-X Authority instance. In a
    real scenario the GAIA-X Authority is an external component and can communicate with multiple Dataspaces.
-3. The GAIA-X private key will be used in the participant deployment workflow to generate GAIA-X membership Verifiable Credentials. Additionally, 
-   it will be published as Github artifact so that it can be used locally to onboard additional participants.
+3. The GAIA-X private key will be used in the participant deployment workflow to generate GAIA-X membership Verifiable Credentials. Additionally,
+   it will be made available to be used locally to onboard additional participants.
 4. A CLI client for IdentityHub will be implemented. It will be used in the MVD deployment workflow to populate the participant's Identity Hub with GAIA-X 
    membership Verifiable Credentials.
 5. A CLI client for the Registration Service will be implemented. It will be used in the MVD deployment workflow to start the participant onboarding process. The CLI
