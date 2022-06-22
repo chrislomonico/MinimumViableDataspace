@@ -6,7 +6,8 @@ This document outlines the infrastructure steps for the scenario of onboarding p
 
 To join the MVD, each participant must have a Verifiable Credential (VC) signed by GAIA-X Authority which proves GAIA-X membership.
 
-At present the MVD deployment pipeline does not interact with the real GAIA-X Authority. A simulated GAIA-X Authority is deployed within MVD for demonstration purposes.
+At present the MVD deployment pipeline does not interact with the real GAIA-X Authority. A simulated GAIA-X Authority DID document is deployed within MVD 
+for demonstration purposes. 
 
 ## Onboarding process - GAIA-X membership verification
 
@@ -23,7 +24,9 @@ Actors in the onboarding scenario:
 To enable above precondition and onboarding scenario in MVD, the following steps need to be implemented in the MVD infrastructure: 
 
 1. The MVD deployment workflow will generate the private and public keys for GAIA-X Authority.
-2. The MVD deployment workflow will deploy the GAIA-X Authority DID document containing the public key.
+2. The MVD deployment workflow will deploy the GAIA-X Authority DID document containing the public key. For the simplicity the GAIA-X Authority DID document 
+   is deployed together with other Dataspace components, which means that each deployed Dataspace will have its own GAIA-X Authority instance. In a
+   real scenario the GAIA-X Authority is an external component and can communicate with multiple Dataspaces.
 3. The GAIA-X private key will be used in the participant deployment workflow to generate GAIA-X membership Verifiable Credentials. Additionally, 
    it will be published as Github artifact so that it can be used locally to onboard additional participants.
 4. A CLI client for IdentityHub will be implemented. It will be used in the MVD deployment workflow to populate the participant's Identity Hub with GAIA-X 
