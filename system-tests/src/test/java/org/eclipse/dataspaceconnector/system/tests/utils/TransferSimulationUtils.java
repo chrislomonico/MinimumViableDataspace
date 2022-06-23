@@ -28,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
 import java.util.Map;
-import java.util.UUID;
 
 import static io.gatling.javaapi.core.CoreDsl.StringBody;
 import static io.gatling.javaapi.core.CoreDsl.doWhileDuring;
