@@ -117,7 +117,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{data_management_url}}/policies",
+							"raw": "{{data_management_url}}/policydefinitions",
 							"host": [
 								"{{data_management_url}}"
 							],
@@ -157,7 +157,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{data_management_url}}/policies",
+							"raw": "{{data_management_url}}/policydefinitions",
 							"host": [
 								"{{data_management_url}}"
 							],
