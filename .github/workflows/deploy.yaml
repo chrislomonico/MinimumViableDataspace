@@ -20,6 +20,8 @@ on:
 permissions:
   id-token: write
   contents: read
+  checks: write
+  pull-requests: write
 
 env:
   RESOURCES_PREFIX: ${{ github.event.inputs.resources_prefix || inputs.resources_prefix }}
@@ -374,6 +376,19 @@ jobs:
           CONSUMER_US_DID_URL: did:web:${{ needs.Deploy-Participants.outputs.company3_did_host }}
           API_KEY: ${{ needs.Deploy-Participants.outputs.company2_api_key }}
 
+      - name: "Publish Gatling report"
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Gatling reports
+          path: '**/build/reports/gatling/**'
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: "**/test-results/**/*.xml"
+
   # Verify docker-compose setup for local testing
   VerifyLocalTests:
     needs:
@@ -432,6 +447,19 @@ jobs:
         env:
           CONSUMER_EU_KEY_VAULT: ${{ needs.Deploy-Participants.outputs.company2_key_vault }}
           CONSUMER_US_KEY_VAULT: ${{ needs.Deploy-Participants.outputs.company3_key_vault }}
+
+      - name: "Publish Gatling report"
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Gatling reports
+          path: '**/build/reports/gatling/**'
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: "**/test-results/**/*.xml"
 
       - name: 'docker-compose logs'
         run: docker-compose -f system-tests/docker-compose.yml logs
