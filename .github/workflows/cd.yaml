@@ -2,7 +2,7 @@ name: CD
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ main, feature/151-gaiax-did ]
     paths-ignore:
       - 'docs/**'
 
