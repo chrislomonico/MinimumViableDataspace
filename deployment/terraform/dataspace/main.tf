@@ -40,7 +40,8 @@ locals {
   registration_service_dns_label = "${var.prefix}-registration-mvd"
   edc_default_port               = 8181
 
-  did_url = "did:web:${azurerm_storage_account.did.primary_web_host}"
+  registry_did_url = "did:web:${azurerm_storage_account.registry_did.primary_web_host}"
+  gaiax_did_url = "did:web:${azurerm_storage_account.gaiax_did.primary_web_host}"
 }
 
 resource "azurerm_resource_group" "dataspace" {
@@ -120,8 +121,9 @@ resource "azurerm_role_assignment" "current-user-secretsofficer" {
   principal_id         = data.azurerm_client_config.current_client.object_id
 }
 
-resource "azurerm_storage_account" "did" {
-  name                     = "${var.prefix}did"
+# Registration Service resources
+resource "azurerm_storage_account" "registry_did" {
+  name                     = "${var.prefix}registrydid"
   resource_group_name      = azurerm_resource_group.dataspace.name
   location                 = var.location
   account_tier             = "Standard"
@@ -133,40 +135,80 @@ resource "azurerm_storage_account" "did" {
 resource "azurerm_key_vault_secret" "did_key" {
   name = local.connector_name
   # Create did_key secret only if key_file value is provided. Default key_file value is null.
-  count        = var.key_file == null ? 0 : 1
-  value        = file(var.key_file)
+  count        = var.key_file_registry == null ? 0 : 1
+  value        = file(var.key_file_registry)
   key_vault_id = azurerm_key_vault.registry.id
   depends_on = [
     azurerm_role_assignment.current-user-secretsofficer
   ]
 }
 
-resource "azurerm_storage_blob" "did" {
+resource "azurerm_storage_blob" "registry_did" {
   name                 = ".well-known/did.json" # `.well-known` path is defined by did:web specification
-  storage_account_name = azurerm_storage_account.did.name
+  storage_account_name = azurerm_storage_account.registry_did.name
   # Create did blob only if public_key_jwk_file is provided. Default public_key_jwk_file value is null.
-  count                  = var.public_key_jwk_file == null ? 0 : 1
+  count                  = var.public_key_jwk_file_registry == null ? 0 : 1
   storage_container_name = "$web" # container used to serve static files (see static_website property on storage account)
   type                   = "Block"
   source_content = jsonencode({
-    id = local.did_url
+    id = local.registry_did_url
     "@context" = [
       "https://www.w3.org/ns/did/v1",
       {
-        "@base" = local.did_url
+        "@base" = local.registry_did_url
       }
     ],
     "verificationMethod" = [
       {
-        "id"           = "#identity-key-1"
+        "id"           = "#identity-key-registration-service"
         "controller"   = ""
         "type"         = "JsonWebKey2020"
-        "publicKeyJwk" = jsondecode(file(var.public_key_jwk_file))
+        "publicKeyJwk" = jsondecode(file(var.public_key_jwk_file_registry))
       }
     ],
     "authentication" : [
-      "#identity-key-1"
+      "#identity-key-registration-service"
   ] })
+  content_type = "application/json"
+}
+
+# GAIA-X Authority resources
+resource "azurerm_storage_account" "gaiax_did" {
+  name                     = "${var.prefix}gaiaxdid"
+  resource_group_name      = azurerm_resource_group.dataspace.name
+  location                 = var.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  account_kind             = "StorageV2"
+  static_website {}
+}
+
+resource "azurerm_storage_blob" "gaiax_did" {
+  name                 = ".well-known/did.json" # `.well-known` path is defined by did:web specification
+  storage_account_name = azurerm_storage_account.gaiax_did.name
+  # Create did blob only if public_key_jwk_file is provided. Default public_key_jwk_file value is null.
+  count                  = var.public_key_jwk_file_gaiax == null ? 0 : 1
+  storage_container_name = "$web" # container used to serve static files (see static_website property on storage account)
+  type                   = "Block"
+  source_content = jsonencode({
+    id = local.gaiax_did_url
+    "@context" = [
+      "https://www.w3.org/ns/did/v1",
+      {
+        "@base" = local.gaiax_did_url
+      }
+    ],
+    "verificationMethod" = [
+      {
+        "id"           = "#identity-key-gaiax"
+        "controller"   = ""
+        "type"         = "JsonWebKey2020"
+        "publicKeyJwk" = jsondecode(file(var.public_key_jwk_file_gaiax))
+      }
+    ],
+    "authentication" : [
+      "#identity-key-gaiax"
+    ] })
   content_type = "application/json"
 }
 
