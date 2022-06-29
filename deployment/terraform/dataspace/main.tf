@@ -41,7 +41,7 @@ locals {
   edc_default_port               = 8181
 
   registry_did_url = "did:web:${azurerm_storage_account.registry_did.primary_web_host}"
-  gaiax_did_url = "did:web:${azurerm_storage_account.gaiax_did.primary_web_host}"
+  gaiax_did_url    = "did:web:${azurerm_storage_account.gaiax_did.primary_web_host}"
 }
 
 resource "azurerm_resource_group" "dataspace" {
@@ -208,7 +208,7 @@ resource "azurerm_storage_blob" "gaiax_did" {
     ],
     "authentication" : [
       "#identity-key-gaiax"
-    ] })
+  ] })
   content_type = "application/json"
 }
 
