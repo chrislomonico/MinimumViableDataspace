@@ -148,9 +148,9 @@ jobs:
 
       - name: 'Generate GAIA-X Authority key'
         run: |
-        openssl ecparam -name prime256v1 -genkey -noout -out gaiaxkey.pem
-        openssl ec -in gaiaxkey.pem -pubout -out gaiaxkey.public.pem
-        docker run -i danedmunds/pem-to-jwk:1.2.1 --public --pretty < gaiaxkey.public.pem > gaiaxkey.public.jwk
+          openssl ecparam -name prime256v1 -genkey -noout -out gaiaxkey.pem
+          openssl ec -in gaiaxkey.pem -pubout -out gaiaxkey.public.pem
+          docker run -i danedmunds/pem-to-jwk:1.2.1 --public --pretty < gaiaxkey.public.pem > gaiaxkey.public.jwk
 
       - name: 'Create tfvars file'
         run: |
