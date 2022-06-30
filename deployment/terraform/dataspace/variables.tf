@@ -40,11 +40,6 @@ variable "key_file_registry" {
   default     = null
 }
 
-variable "key_file_gaiax" {
-  description = "name of a file containing the GAIA-X Authority Service private key in PEM format"
-  default     = null
-}
-
 variable "public_key_jwk_file_registry" {
   description = "name of a file containing the Registration Service public key in JWK format"
   default     = null

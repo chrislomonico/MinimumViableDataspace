@@ -202,7 +202,6 @@ jobs:
           # Terraform variables not included in terraform.tfvars.
           TF_VAR_key_file_registry: "registrationservicekey.pem"
           TF_VAR_public_key_jwk_file_registry: "registrationservicekey.public.jwk"
-          TF_VAR_key_file_gaiax: "gaiaxkey.pem"
           TF_VAR_public_key_jwk_file_gaiax: "gaiaxkey.public.jwk"
 
       - name: 'Verify Registration Service did endpoint is available'
