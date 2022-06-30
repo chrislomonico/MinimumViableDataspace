@@ -11,7 +11,6 @@ runs:
   steps:
     - name: 'Generate GAIA-X Authority key'
       uses: actions/checkout@v2
-      working-directory: deployment/terraform/dataspace
       run: |
         openssl ecparam -name prime256v1 -genkey -noout -out ${{ inputs.keyname }}.pem
         openssl ec -in ${{ inputs.keyname }}.pem -pubout -out ${{ inputs.keyname }}.public.pem
