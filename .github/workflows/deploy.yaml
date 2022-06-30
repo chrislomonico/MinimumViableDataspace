@@ -204,11 +204,11 @@ jobs:
           TF_VAR_public_key_jwk_file_registry: "registrationservicekey.public.jwk"
           TF_VAR_public_key_jwk_file_gaiax: "gaiaxkey.public.jwk"
 
-      - name: 'Verify Registration Service did endpoint is available'
-        run: curl https://${{ steps.runterraform.outputs.registry_did_host }}/.well-known/did.json | jq '.id'
-
       - name: 'Verify GAIA-X Authority did endpoint is available'
         run: curl https://${{ steps.runterraform.outputs.gaiax_did_host }}/.well-known/did.json | jq '.id'
+
+      - name: 'Verify Registration Service did endpoint is available'
+        run: curl https://${{ steps.runterraform.outputs.registry_did_host }}/.well-known/did.json | jq '.id'
 
       - name: 'Verify deployed Registry Service is healthy'
         run: curl --retry 6 --fail ${{ steps.runterraform.outputs.registration_service_url }}/api/check/health
