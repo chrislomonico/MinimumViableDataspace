@@ -140,17 +140,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: 'Generate Registration Service key'
-        run: |
-          openssl ecparam -name prime256v1 -genkey -noout -out registrykey.pem
-          openssl ec -in registrykey.pem -pubout -out registrykey.public.pem
-          docker run -i danedmunds/pem-to-jwk:1.2.1 --public --pretty < registrykey.public.pem > registrykey.public.jwk
-
       - name: 'Generate GAIA-X Authority key'
-        run: |
-          openssl ecparam -name prime256v1 -genkey -noout -out gaiaxkey.pem
-          openssl ec -in gaiaxkey.pem -pubout -out gaiaxkey.public.pem
-          docker run -i danedmunds/pem-to-jwk:1.2.1 --public --pretty < gaiaxkey.public.pem > gaiaxkey.public.jwk
+        uses: ./.github/actions/generate-key
+        with:
+          keyname: gaiaxkey
+
+      - name: 'Generate Dataspace Authority key'
+        uses: ./.github/actions/generate-key
+        with:
+          keyname: registrationservicekey
 
       - name: 'Create tfvars file'
         run: |
@@ -202,8 +200,8 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           # Terraform variables not included in terraform.tfvars.
-          TF_VAR_key_file_registry: "registrykey.pem"
-          TF_VAR_public_key_jwk_file_registry: "registrykey.public.jwk"
+          TF_VAR_key_file_registry: "registrationservicekey.pem"
+          TF_VAR_public_key_jwk_file_registry: "registrationservicekey.public.jwk"
           TF_VAR_key_file_gaiax: "gaiaxkey.pem"
           TF_VAR_public_key_jwk_file_gaiax: "gaiaxkey.public.jwk"
 
