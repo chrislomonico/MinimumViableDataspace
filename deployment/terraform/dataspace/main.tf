@@ -160,14 +160,14 @@ resource "azurerm_storage_blob" "authority_did" {
     ],
     "verificationMethod" = [
       {
-        "id"           = "#identity-key-registration-service"
+        "id"           = "#identity-key-authority"
         "controller"   = ""
         "type"         = "JsonWebKey2020"
         "publicKeyJwk" = jsondecode(file(var.public_key_jwk_file_authority))
       }
     ],
     "authentication" : [
-      "#identity-key-registration-service"
+      "#identity-key-authority"
   ] })
   content_type = "application/json"
 }

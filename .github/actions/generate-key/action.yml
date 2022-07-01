@@ -1,9 +1,9 @@
 name: "Generate key"
-description: "Generate key"
+description: "Generate openssl public and private keys"
 
 inputs:
-  keyname:
-    description: 'Name of the key file name.'
+  keyFileNamePrefix:
+    description: 'Prefix of the key file name.'
     required: true
   directory:
     description: 'Path to a directory where the key should be saved.'
@@ -13,7 +13,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: 'Generate GAIA-X Authority key'
+    - name: 'Generate key'
       run: |
         openssl ecparam -name prime256v1 -genkey -noout -out ${{ inputs.keyname }}.pem
         openssl ec -in ${{ inputs.keyname }}.pem -pubout -out ${{ inputs.keyname }}.public.pem
