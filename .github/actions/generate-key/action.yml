@@ -11,7 +11,6 @@ runs:
   steps:
     - name: 'Generate GAIA-X Authority key'
       run: |
-        pwd
         openssl ecparam -name prime256v1 -genkey -noout -out ${{ inputs.keyname }}.pem
         openssl ec -in ${{ inputs.keyname }}.pem -pubout -out ${{ inputs.keyname }}.public.pem
         docker run -i danedmunds/pem-to-jwk:1.2.1 --public --pretty < ${{ inputs.keyname }}.public.pem > ${{ inputs.keyname }}.public.jwk
