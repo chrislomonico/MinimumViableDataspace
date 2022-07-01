@@ -16,7 +16,7 @@ runs:
       with:
         repository: agera-edc/RegistrationService # FIXME
         path: RegistrationService
-        ref: 1d11422942011a1a2704242b657ed06623498276 # FIXME
+        ref: 6eb3bfce1efe362b74c533fa5d9af5d460cc13b0 # FIXME
 
     # Install Java and cache MVD Gradle build.
     - uses: actions/setup-java@v2
