@@ -1,4 +1,4 @@
-name: "Generate key"
+name: "Generate keys"
 description: "Generate openssl public and private keys"
 
 inputs:
