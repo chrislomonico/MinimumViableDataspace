@@ -41,7 +41,7 @@ locals {
   edc_default_port               = 8181
 
   authority_did_url = "did:web:${azurerm_storage_account.authority_did.primary_web_host}"
-  gaiax_did_url    = "did:web:${azurerm_storage_account.gaiax_did.primary_web_host}"
+  gaiax_did_url     = "did:web:${azurerm_storage_account.gaiax_did.primary_web_host}"
 }
 
 resource "azurerm_resource_group" "dataspace" {
