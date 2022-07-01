@@ -31,7 +31,6 @@ import org.eclipse.dataspaceconnector.spi.types.TypeManager;
  */
 public class RegistrationServiceNodeDirectoryExtension implements ServiceExtension {
 
-
     @EdcSetting
     private static final String REGISTRATION_SERVICE_API_URL = "registration.service.api.url";
     private static final String REGISTRATION_SERVICE_API_URL_DEFAULT = "http://localhost:8181/api";
