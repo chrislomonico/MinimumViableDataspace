@@ -37,8 +37,11 @@ locals {
 
   connector_name = "connector-registration"
 
-  registration_service_dns_label = "${var.prefix}-registration-mvd"
-  edc_default_port               = 8181
+  registration_service_dns_label  = "${var.prefix}-registration-mvd"
+  edc_default_port                = 8181
+  registration_service_port       = 8182
+  registration_service_url_prefix = "/authority"
+
 
   did_url = "did:web:${azurerm_storage_account.did.primary_web_host}"
 }
@@ -76,17 +79,20 @@ resource "azurerm_container_group" "registration-service" {
     memory = var.container_memory
 
     ports {
-      port     = local.edc_default_port
+      port     = local.registration_service_port
       protocol = "TCP"
     }
 
     environment_variables = {
-      EDC_CONNECTOR_NAME = local.connector_name
+      EDC_CONNECTOR_NAME      = local.connector_name
+      JWT_AUDIENCE            = "http://${local.registration_service_dns_label}.${var.location}.azurecontainer.io:${local.registration_service_port}"
+      WEB_HTTP_AUTHORITY_PORT = local.registration_service_port
+      WEB_HTTP_AUTHORITY_PATH = local.registration_service_url_prefix
     }
 
     liveness_probe {
       http_get {
-        port = 8181
+        port = local.edc_default_port
         path = "/api/check/health"
       }
     }

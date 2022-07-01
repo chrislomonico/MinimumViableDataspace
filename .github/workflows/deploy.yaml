@@ -336,7 +336,12 @@ jobs:
       - name: 'Register participant'
         run: |
           mvn dependency:copy -Dartifact=org.eclipse.dataspaceconnector.registrationservice:registration-service-cli:1.0.0-SNAPSHOT:jar:all -DoutputDirectory=.
-          java -jar registration-service-cli-1.0.0-SNAPSHOT-all.jar -s=$REGISTRATION_SERVICE_API_URL participants add --request='{ "name": "${{matrix.participant}}", "supportedProtocols": [ "ids-multipart" ], "url": "http://${{ env.EDC_HOST }}:8282" }'
+          java -jar registration-service-cli-1.0.0-SNAPSHOT-all.jar \
+            -s $REGISTRATION_SERVICE_API_URL \
+            -d did:web:$DID_HOST \
+            -k key.pem \
+            participants add \
+            --ids-url "http://${{ env.EDC_HOST }}:8282
         env:
           REGISTRATION_SERVICE_API_URL: ${{ needs.Deploy-Dataspace.outputs.registration_service_url }}/api
 
