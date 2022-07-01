@@ -3,7 +3,7 @@ description: "Generate key"
 
 inputs:
   keyname:
-    description: 'Name of the key used as key file name'
+    description: 'Name of the key file name'
     required: true
 
 runs:
