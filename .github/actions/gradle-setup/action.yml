@@ -7,9 +7,9 @@ runs:
     - name: Checkout EDC
       uses: actions/checkout@v2
       with:
-        repository: agera-edc/DataSpaceConnector  # FIXME
+        repository: eclipse-dataspaceconnector/DataSpaceConnector
         path: DataSpaceConnector
-        ref: ee1c745251b304c2dbca93b2b3888685c701cadf  # FIXME
+        ref: 23c99ea20bee15703b28a4b5f50d9f66380fee45
 
     - name: Checkout Registration Service
       uses: actions/checkout@v2
