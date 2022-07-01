@@ -157,7 +157,7 @@ jobs:
           acr_name = "${{ secrets.ACR_NAME }}"
           prefix = "${{ env.RESOURCES_PREFIX }}"
           resource_group = "rg-${{ env.RESOURCES_PREFIX }}"
-          registry_runtime_image = "mvd/registration-service:${{ env.RESOURCES_PREFIX }}"
+          registrationservice_runtime_image = "mvd/registration-service:${{ env.RESOURCES_PREFIX }}"
           application_sp_object_id = "${{ secrets.APP_OBJECT_ID }}"
           EOF
 
