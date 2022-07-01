@@ -259,7 +259,7 @@ jobs:
           dashboard_image = "mvd/data-dashboard:${{ env.RESOURCES_PREFIX }}"
           application_sp_object_id = "${{ secrets.APP_OBJECT_ID }}"
           application_sp_client_id = "${{ secrets.APP_CLIENT_ID }}"
-          registration_service_api_url = "${{ needs.Deploy-Dataspace.outputs.registration_service_url }}/api"
+          registration_service_api_url = "${{ needs.Deploy-Dataspace.outputs.registration_service_url }}/authority"
           EOF
 
       - name: 'Az CLI login'

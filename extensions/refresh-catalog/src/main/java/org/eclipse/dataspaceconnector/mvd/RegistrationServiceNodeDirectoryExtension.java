@@ -33,7 +33,7 @@ public class RegistrationServiceNodeDirectoryExtension implements ServiceExtensi
 
     @EdcSetting
     private static final String REGISTRATION_SERVICE_API_URL = "registration.service.api.url";
-    private static final String REGISTRATION_SERVICE_API_URL_DEFAULT = "http://localhost:8181/api";
+    private static final String REGISTRATION_SERVICE_API_URL_DEFAULT = "http://localhost:8182/authority";
 
     @Inject
     private Monitor monitor;

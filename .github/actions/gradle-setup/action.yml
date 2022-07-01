@@ -14,9 +14,9 @@ runs:
     - name: Checkout Registration Service
       uses: actions/checkout@v2
       with:
-        repository: agera-edc/RegistrationService # FIXME
+        repository: agera-edc/RegistrationService # FIXME revert after https://github.com/agera-edc/MinimumViableDataspace/pull/178 is merged
         path: RegistrationService
-        ref: 6eb3bfce1efe362b74c533fa5d9af5d460cc13b0 # FIXME
+        ref: 6eb3bfce1efe362b74c533fa5d9af5d460cc13b0 # FIXME update after https://github.com/agera-edc/MinimumViableDataspace/pull/178 is merged
 
     # Install Java and cache MVD Gradle build.
     - uses: actions/setup-java@v2
