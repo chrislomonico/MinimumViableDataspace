@@ -96,7 +96,7 @@ resource "azurerm_container_group" "registration-service" {
 
 resource "azurerm_key_vault" "registrationservice" {
   // added `kv` prefix because the keyvault name needs to begin with a letter
-  name                        = "kv${var.prefix}registrationservice"
+  name                        = "kv${var.prefix}registration"
   location                    = var.location
   resource_group_name         = azurerm_resource_group.dataspace.name
   enabled_for_disk_encryption = false
