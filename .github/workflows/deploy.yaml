@@ -251,10 +251,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: 'Generate Participant's key'
+      - name: 'Generate Participant key'
         uses: ./.github/actions/generate-key
         with:
           keyname: key
+          directory: deployment/terraform/participant
 
       - name: 'Create tfvars file'
         run: |
