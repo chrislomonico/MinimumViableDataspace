@@ -132,7 +132,7 @@ resource "azurerm_storage_account" "authority_did" {
   static_website {}
 }
 
-resource "azurerm_key_vault_secret" "did_key" {
+resource "azurerm_key_vault_secret" "authority_did_key" {
   name = local.connector_name
   # Create did_key secret only if key_file value is provided. Default key_file value is null.
   count        = var.key_file_authority == null ? 0 : 1

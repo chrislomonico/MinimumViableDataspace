@@ -144,13 +144,11 @@ jobs:
         uses: ./.github/actions/generate-key
         with:
           keyFileNamePrefix: gaiaxkey
-          directory: deployment/terraform/dataspace
 
       - name: 'Generate Dataspace Authority key'
         uses: ./.github/actions/generate-key
         with:
           keyFileNamePrefix: authoritykey
-          directory: deployment/terraform/dataspace
 
       - name: 'Create tfvars file'
         run: |
