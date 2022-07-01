@@ -85,7 +85,7 @@ resource "azurerm_container_group" "registration-service" {
 
     environment_variables = {
       EDC_CONNECTOR_NAME      = local.connector_name
-      JWT_AUDIENCE            = "http://${local.registration_service_dns_label}.${var.location}.azurecontainer.io:${local.registration_service_port}"
+      JWT_AUDIENCE            = "http://${local.registration_service_dns_label}.${var.location}.azurecontainer.io:${local.registration_service_port}${local.registration_service_url_prefix}"
       WEB_HTTP_AUTHORITY_PORT = local.registration_service_port
       WEB_HTTP_AUTHORITY_PATH = local.registration_service_url_prefix
     }
