@@ -187,8 +187,8 @@ jobs:
           echo "::set-output name=app_insights_connection_string::${app_insights_connection_string}"
           registration_service_url=$(terraform output -raw registration_service_url)
           echo "::set-output name=registration_service_url::${registration_service_url}"
-          registry_did_host=$(terraform output -raw registry_did_host)
-          echo "::set-output name=registry_did_host::${registry_did_host}"
+          authority_did_host=$(terraform output -raw authority_did_host)
+          echo "::set-output name=authority_did_host::${authority_did_host}"
           gaiax_did_host=$(terraform output -raw gaiax_did_host)
           echo "::set-output name=gaiax_did_host::${gaiax_did_host}"
 
@@ -200,15 +200,15 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           # Terraform variables not included in terraform.tfvars.
-          TF_VAR_key_file_registry: "registrationservicekey.pem"
-          TF_VAR_public_key_jwk_file_registry: "registrationservicekey.public.jwk"
+          TF_VAR_key_file_authority: "registrationservicekey.pem"
+          TF_VAR_public_key_jwk_file_authority: "registrationservicekey.public.jwk"
           TF_VAR_public_key_jwk_file_gaiax: "gaiaxkey.public.jwk"
 
       - name: 'Verify GAIA-X Authority did endpoint is available'
         run: curl https://${{ steps.runterraform.outputs.gaiax_did_host }}/.well-known/did.json | jq '.id'
 
-      - name: 'Verify Registration Service did endpoint is available'
-        run: curl https://${{ steps.runterraform.outputs.registry_did_host }}/.well-known/did.json | jq '.id'
+      - name: 'Verify Dataspace Authority did endpoint is available'
+        run: curl https://${{ steps.runterraform.outputs.authority_did_host }}/.well-known/did.json | jq '.id'
 
       - name: 'Verify deployed Registry Service is healthy'
         run: curl --retry 6 --fail ${{ steps.runterraform.outputs.registration_service_url }}/api/check/health
