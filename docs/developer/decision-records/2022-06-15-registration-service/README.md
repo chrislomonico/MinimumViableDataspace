@@ -84,7 +84,7 @@ In simple scenarios, enrollment could be fast and fully automated. However, in a
 
 #### Overview
 
-A typical EDC deployment caches contract offers from other participants in a federated catalog, so that users can quickly browse and negotiate contracts. To regularly retrieve offers, it regularly contacts the Dataspace Registry to refresh its list of Dataspace Participants, then obtains contract offers from each participants to refresh its cache.
+A typical EDC deployment caches contract offers from other participants in a federated catalog, so that users can quickly browse and negotiate contracts. To regularly retrieve offers, it regularly contacts the Dataspace Registry (Registration Service) to refresh its list of Dataspace Participants, then obtains contract offers from each participants to refresh its cache.
 
 In this flow, the EDC for _Company1_ obtains a list of Dataspace Participants and resolves their IDS endpoints.
 
