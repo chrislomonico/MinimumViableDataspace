@@ -8,16 +8,15 @@ services:
         JVM_ARGS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
     environment:
       IDS_WEBHOOK_ADDRESS: http://provider:8282
-      EDC_CONNECTOR_NAME: ${PROVIDER_CONNECTOR_NAME}
+      EDC_CONNECTOR_NAME: provider
       EDC_IDENTITY_DID_URL: ${PROVIDER_DID_URL}
-      EDC_VAULT_NAME: ${PROVIDER_KEY_VAULT}
-      EDC_VAULT_TENANTID: ${APP_TENANT_ID}
-      EDC_VAULT_CLIENTID: ${APP_CLIENT_ID}
-      EDC_VAULT_CLIENTSECRET: ${APP_CLIENT_SECRET}
+      EDC_VAULT: /resources/vault/provider/test-vault.properties
+      EDC_KEYSTORE: /resources/vault/provider/edc-test-keystore.jks
+      EDC_KEYSTORE_PASSWORD: test123
       EDC_API_AUTH_KEY: ApiKeyDefaultValue
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
-      REGISTRATION_SERVICE_API_URL: ${REGISTRATION_SERVICE_URL}/api
+      REGISTRATION_SERVICE_API_URL: http://registration-service:8184/api
     ports:
       - "9191:9191"
       - "8181:8181"
@@ -33,16 +32,15 @@ services:
         JVM_ARGS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006"
     environment:
       IDS_WEBHOOK_ADDRESS: http://consumer-eu:8282
-      EDC_CONNECTOR_NAME: ${CONSUMER_EU_CONNECTOR_NAME}
+      EDC_CONNECTOR_NAME: consumer-eu
       EDC_IDENTITY_DID_URL: ${CONSUMER_EU_DID_URL}
-      EDC_VAULT_NAME: ${CONSUMER_EU_KEY_VAULT}
-      EDC_VAULT_TENANTID: ${APP_TENANT_ID}
-      EDC_VAULT_CLIENTID: ${APP_CLIENT_ID}
-      EDC_VAULT_CLIENTSECRET: ${APP_CLIENT_SECRET}
+      EDC_VAULT: /resources/vault/consumer-eu/test-vault.properties
+      EDC_KEYSTORE: /resources/vault/consumer-eu/edc-test-keystore.jks
+      EDC_KEYSTORE_PASSWORD: test123
       EDC_API_AUTH_KEY: ApiKeyDefaultValue
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
-      REGISTRATION_SERVICE_API_URL: ${REGISTRATION_SERVICE_URL}/api
+      REGISTRATION_SERVICE_API_URL: http://registration-service:8184/api
     ports:
       - "9192:9191"
       - "8182:8181"
@@ -58,16 +56,15 @@ services:
         JVM_ARGS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007"
     environment:
       IDS_WEBHOOK_ADDRESS: http://consumer-us:8282
-      EDC_CONNECTOR_NAME: ${CONSUMER_US_CONNECTOR_NAME}
+      EDC_CONNECTOR_NAME: consumer-us
       EDC_IDENTITY_DID_URL: ${CONSUMER_US_DID_URL}
-      EDC_VAULT_NAME: ${CONSUMER_US_KEY_VAULT}
-      EDC_VAULT_CLIENTID: ${APP_CLIENT_ID}
-      EDC_VAULT_CLIENTSECRET: ${APP_CLIENT_SECRET}
-      EDC_VAULT_TENANTID: ${APP_TENANT_ID}
+      EDC_VAULT: /resources/vault/consumer-us/test-vault.properties
+      EDC_KEYSTORE: /resources/vault/consumer-us/edc-test-keystore.jks
+      EDC_KEYSTORE_PASSWORD: test123
       EDC_API_AUTH_KEY: ApiKeyDefaultValue
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
-      REGISTRATION_SERVICE_API_URL: ${REGISTRATION_SERVICE_URL}/api
+      REGISTRATION_SERVICE_API_URL: http://registration-service:8184/api
     ports:
       - "9193:9191"
       - "8183:8181"
@@ -94,3 +91,23 @@ services:
         condition: service_healthy
       provider:
         condition: service_healthy
+
+  azurite:
+    container_name: azurite
+    image: mcr.microsoft.com/azure-storage/azurite
+    ports:
+      - 10000:10000
+    environment:
+      AZURITE_ACCOUNTS: account1:key1;account2:key2
+
+  registration-service:
+    container_name: registration-service
+    build:
+      context: ../../RegistrationService/launcher
+      args:
+        JVM_ARGS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008"
+    environment:
+      EDC_API_AUTH_KEY: ApiKeyDefaultValue
+    ports:
+      - "8184:8181"
+      - "5008:5008"
