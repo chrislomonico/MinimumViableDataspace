@@ -6,20 +6,18 @@
       "@base": "did:web:consumer-eu-did-server:consumer-eu"
     }
   ],
-  "verificationMethod": [
-    {
-      "id": "#my-key-1",
-      "controller": "",
-      "type": "EcdsaSecp256k1VerificationKey2019",
-      "publicKeyJwk":{
-        "kty": "EC",
-        "kid": "Or3fIjl3_2cBqwIJDC2HGNg_qyB7D-3YYPQAbpZag6g",
-        "crv": "P-256",
-        "x": "4mi45pgE5iPdhluNpmtnAFztWi8vxMrDSoXqD5ah2Rk",
-        "y": "FdxTvkrkYtmxPgdmFpxRzZSVvcVUEksSzr1cH_kT58w"
-      }
+  "verificationMethod": [{
+    "id": "#my-key-1",
+    "controller": "",
+    "type": "EcdsaSecp256k1VerificationKey2019",
+    "publicKeyJwk": {
+      "kty": "EC",
+      "kid": "uIowOgviyWueDwC2SjwEPnqsBVQkhIN3m6B0Ajs6rlU",
+      "crv": "P-256",
+      "x": "T6VaLBE16dj2WcqcCaF6M1ORlaQhrT5bEhY8JUiDwRA",
+      "y": "hcVb4PnEmH2TMYbPk-ctwHx3o15JNIOhIYPBzR3iYf4"
     }
-  ],
+  }],
   "authentication": [
     "#my-key-1"
   ]

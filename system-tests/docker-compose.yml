@@ -8,7 +8,7 @@ services:
         JVM_ARGS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
     environment:
       IDS_WEBHOOK_ADDRESS: http://provider:8282
-      EDC_CONNECTOR_NAME: connector-provider
+      EDC_CONNECTOR_NAME: provider
       EDC_IDENTITY_DID_URL: did:web:provider-did-server:provider
       EDC_VAULT: /resources/vault/provider/provider-vault.properties
       EDC_KEYSTORE: /resources/vault/provider/provider-keystore.jks
@@ -44,7 +44,7 @@ services:
         JVM_ARGS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006"
     environment:
       IDS_WEBHOOK_ADDRESS: http://consumer-eu:8282
-      EDC_CONNECTOR_NAME: connector-consumer-eu
+      EDC_CONNECTOR_NAME: consumer-eu
       EDC_IDENTITY_DID_URL: did:web:consumer-eu-did-server:consumer-eu
       EDC_VAULT: /resources/vault/consumer-eu/consumer-eu-vault.properties
       EDC_KEYSTORE: /resources/vault/consumer-eu/consumer-eu-keystore.jks
@@ -80,7 +80,7 @@ services:
         JVM_ARGS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007"
     environment:
       IDS_WEBHOOK_ADDRESS: http://consumer-us:8282
-      EDC_CONNECTOR_NAME: connector-consumer-us
+      EDC_CONNECTOR_NAME: consumer-us
       EDC_IDENTITY_DID_URL: did:web:consumer-us-did-server:consumer-us
       EDC_VAULT: /resources/vault/consumer-us/consumer-us-vault.properties
       EDC_KEYSTORE: /resources/vault/consumer-us/consumer-us-keystore.jks
