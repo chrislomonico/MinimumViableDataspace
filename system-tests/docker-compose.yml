@@ -83,7 +83,7 @@ services:
     environment:
       API_KEY: ApiKeyDefaultValue
       EDC_HOST: provider
-      ASSETS_STORAGE_ACCOUNT: ${PROVIDER_ASSETS_STORAGE_ACCOUNT}
+      ASSETS_STORAGE_ACCOUNT: account1
     depends_on:
       consumer-eu:
         condition: service_healthy
