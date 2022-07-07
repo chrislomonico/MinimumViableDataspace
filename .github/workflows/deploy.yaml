@@ -108,7 +108,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: agera-edc/DataDashboard
-          ref: eebef7aff2e83566d9b4e1e2a0697b923013cedc
+          ref: 3bd1a0e89c3ec6120afbf188c429cbc97fe6e2a3
 
       - name: 'Az CLI login'
         uses: azure/login@v1
