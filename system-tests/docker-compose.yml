@@ -9,7 +9,7 @@ services:
     environment:
       IDS_WEBHOOK_ADDRESS: http://provider:8282
       EDC_CONNECTOR_NAME: provider
-      EDC_IDENTITY_DID_URL: ${PROVIDER_DID_URL}
+      EDC_IDENTITY_DID_URL: did:web:provider-did-server:provider
       EDC_VAULT: /resources/vault/provider/test-vault.properties
       EDC_KEYSTORE: /resources/vault/provider/edc-test-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
@@ -24,6 +24,14 @@ services:
     volumes:
       - ./resources:/resources
 
+  provider-did-server:
+    container_name: provider-did-server
+    image: nginx
+    volumes:
+      - ./resources/webdid:/usr/share/nginx/html
+    ports:
+      - "7070:80"
+
   consumer-eu:
     container_name: consumer-eu
     build:
@@ -33,7 +41,7 @@ services:
     environment:
       IDS_WEBHOOK_ADDRESS: http://consumer-eu:8282
       EDC_CONNECTOR_NAME: consumer-eu
-      EDC_IDENTITY_DID_URL: ${CONSUMER_EU_DID_URL}
+      EDC_IDENTITY_DID_URL: did:web:consumer-eu-did-server:consumer-eu
       EDC_VAULT: /resources/vault/consumer-eu/test-vault.properties
       EDC_KEYSTORE: /resources/vault/consumer-eu/edc-test-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
@@ -48,6 +56,14 @@ services:
     volumes:
       - ./resources:/resources
 
+  consumer-eu-did-server:
+    container_name: consumer-eu-did-server
+    image: nginx
+    volumes:
+      - ./resources/webdid:/usr/share/nginx/html
+    ports:
+      - "7071:80"
+
   consumer-us:
     container_name: consumer-us
     build:
@@ -57,7 +73,7 @@ services:
     environment:
       IDS_WEBHOOK_ADDRESS: http://consumer-us:8282
       EDC_CONNECTOR_NAME: consumer-us
-      EDC_IDENTITY_DID_URL: ${CONSUMER_US_DID_URL}
+      EDC_IDENTITY_DID_URL: did:web:consumer-us-did-server:consumer-us
       EDC_VAULT: /resources/vault/consumer-us/test-vault.properties
       EDC_KEYSTORE: /resources/vault/consumer-us/edc-test-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
@@ -71,6 +87,14 @@ services:
       - "5007:5007"
     volumes:
       - ./resources:/resources
+
+  consumer-us-did-server:
+    container_name: consumer-us-did-server
+    image: nginx
+    volumes:
+      - ./resources/webdid:/usr/share/nginx/html
+    ports:
+      - "7072:80"
 
   newman:
     container_name: newman
