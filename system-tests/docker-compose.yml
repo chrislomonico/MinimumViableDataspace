@@ -10,8 +10,8 @@ services:
       IDS_WEBHOOK_ADDRESS: http://provider:8282
       EDC_CONNECTOR_NAME: connector-provider
       EDC_IDENTITY_DID_URL: did:web:provider-did-server:provider
-      EDC_VAULT: /resources/vault/provider/test-vault.properties
-      EDC_KEYSTORE: /resources/vault/provider/edc-test-keystore.jks
+      EDC_VAULT: /resources/vault/provider/provider-vault.properties
+      EDC_KEYSTORE: /resources/vault/provider/provider-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
       EDC_API_AUTH_KEY: ApiKeyDefaultValue
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
@@ -46,8 +46,8 @@ services:
       IDS_WEBHOOK_ADDRESS: http://consumer-eu:8282
       EDC_CONNECTOR_NAME: connector-consumer-eu
       EDC_IDENTITY_DID_URL: did:web:consumer-eu-did-server:consumer-eu
-      EDC_VAULT: /resources/vault/consumer-eu/test-vault.properties
-      EDC_KEYSTORE: /resources/vault/consumer-eu/edc-test-keystore.jks
+      EDC_VAULT: /resources/vault/consumer-eu/consumer-eu-vault.properties
+      EDC_KEYSTORE: /resources/vault/consumer-eu/consumer-eu-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
       EDC_API_AUTH_KEY: ApiKeyDefaultValue
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
@@ -82,8 +82,8 @@ services:
       IDS_WEBHOOK_ADDRESS: http://consumer-us:8282
       EDC_CONNECTOR_NAME: connector-consumer-us
       EDC_IDENTITY_DID_URL: did:web:consumer-us-did-server:consumer-us
-      EDC_VAULT: /resources/vault/consumer-us/test-vault.properties
-      EDC_KEYSTORE: /resources/vault/consumer-us/edc-test-keystore.jks
+      EDC_VAULT: /resources/vault/consumer-us/consumer-us-vault.properties
+      EDC_KEYSTORE: /resources/vault/consumer-us/consumer-us-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
       EDC_API_AUTH_KEY: ApiKeyDefaultValue
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
@@ -119,7 +119,7 @@ services:
     environment:
       API_KEY: ApiKeyDefaultValue
       EDC_HOST: provider
-      ASSETS_STORAGE_ACCOUNT: account1
+      ASSETS_STORAGE_ACCOUNT: provider-assets
     depends_on:
       consumer-eu:
         condition: service_healthy
@@ -134,7 +134,7 @@ services:
     ports:
       - 10000:10000
     environment:
-      AZURITE_ACCOUNTS: account1:key1;account2:key2
+      AZURITE_ACCOUNTS: provider-assets:key1;consumer-eu-assets:key2;consumer-us-assets:key3
 
   registration-service:
     container_name: registration-service
