@@ -8,7 +8,7 @@ services:
         JVM_ARGS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
     environment:
       IDS_WEBHOOK_ADDRESS: http://provider:8282
-      EDC_CONNECTOR_NAME: provider
+      EDC_CONNECTOR_NAME: connector-provider
       EDC_IDENTITY_DID_URL: did:web:provider-did-server:provider
       EDC_VAULT: /resources/vault/provider/test-vault.properties
       EDC_KEYSTORE: /resources/vault/provider/edc-test-keystore.jks
@@ -17,6 +17,10 @@ services:
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
       REGISTRATION_SERVICE_API_URL: http://registration-service:8184/api
+    depends_on:
+      - provider-did-server
+      - azurite
+      - registration-service
     ports:
       - "9191:9191"
       - "8181:8181"
@@ -40,7 +44,7 @@ services:
         JVM_ARGS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006"
     environment:
       IDS_WEBHOOK_ADDRESS: http://consumer-eu:8282
-      EDC_CONNECTOR_NAME: consumer-eu
+      EDC_CONNECTOR_NAME: connector-consumer-eu
       EDC_IDENTITY_DID_URL: did:web:consumer-eu-did-server:consumer-eu
       EDC_VAULT: /resources/vault/consumer-eu/test-vault.properties
       EDC_KEYSTORE: /resources/vault/consumer-eu/edc-test-keystore.jks
@@ -49,6 +53,10 @@ services:
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
       REGISTRATION_SERVICE_API_URL: http://registration-service:8184/api
+    depends_on:
+      - consumer-eu-did-server
+      - azurite
+      - registration-service
     ports:
       - "9192:9191"
       - "8182:8181"
@@ -72,7 +80,7 @@ services:
         JVM_ARGS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007"
     environment:
       IDS_WEBHOOK_ADDRESS: http://consumer-us:8282
-      EDC_CONNECTOR_NAME: consumer-us
+      EDC_CONNECTOR_NAME: connector-consumer-us
       EDC_IDENTITY_DID_URL: did:web:consumer-us-did-server:consumer-us
       EDC_VAULT: /resources/vault/consumer-us/test-vault.properties
       EDC_KEYSTORE: /resources/vault/consumer-us/edc-test-keystore.jks
@@ -81,6 +89,10 @@ services:
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
       REGISTRATION_SERVICE_API_URL: http://registration-service:8184/api
+    depends_on:
+      - consumer-us-did-server
+      - azurite
+      - registration-service
     ports:
       - "9193:9191"
       - "8183:8181"
