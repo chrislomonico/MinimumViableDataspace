@@ -204,10 +204,10 @@ jobs:
           TF_VAR_public_key_jwk_file_authority: "authoritykey.public.jwk"
           TF_VAR_public_key_jwk_file_gaiax: "gaiaxkey.public.jwk"
 
-      - name: 'Verify GAIA-X Authority did endpoint is available'
+      - name: 'Verify GAIA-X Authority DID endpoint is available'
         run: curl https://${{ steps.runterraform.outputs.gaiax_did_host }}/.well-known/did.json | jq '.id'
 
-      - name: 'Verify Dataspace Authority did endpoint is available'
+      - name: 'Verify Dataspace DID endpoint is available'
         run: curl https://${{ steps.runterraform.outputs.dataspace_did_host }}/.well-known/did.json | jq '.id'
 
       - name: 'Verify deployed Registration Service is healthy'
