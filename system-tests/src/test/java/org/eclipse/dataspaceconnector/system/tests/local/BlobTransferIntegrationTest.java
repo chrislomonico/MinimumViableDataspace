@@ -22,14 +22,14 @@ import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.common.StorageSharedKeyCredential;
 import io.restassured.response.ResponseBodyExtractionOptions;
-import org.apache.commons.lang3.StringUtils;
 import org.eclipse.dataspaceconnector.system.tests.utils.TransferSimulationUtils;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
-import java.util.Objects;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static java.lang.Boolean.parseBoolean;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.eclipse.dataspaceconnector.system.tests.local.BlobTransferLocalSimulation.ACCOUNT_NAME_PROPERTY;
@@ -37,17 +37,33 @@ import static org.eclipse.dataspaceconnector.system.tests.local.TransferLocalSim
 import static org.eclipse.dataspaceconnector.system.tests.local.TransferLocalSimulation.API_KEY_HEADER;
 import static org.eclipse.dataspaceconnector.system.tests.local.TransferLocalSimulation.CONSUMER_MANAGEMENT_URL;
 import static org.eclipse.dataspaceconnector.system.tests.utils.GatlingUtils.runGatling;
+import static org.eclipse.dataspaceconnector.system.tests.utils.TestUtils.requiredPropOrEnv;
 import static org.eclipse.dataspaceconnector.system.tests.utils.TransferSimulationUtils.PROVIDER_ASSET_FILE;
 import static org.eclipse.dataspaceconnector.system.tests.utils.TransferSimulationUtils.TRANSFER_PROCESSES_PATH;
 
 public class BlobTransferIntegrationTest {
-    public static final String DST_KEY_VAULT_NAME = getEnv("CONSUMER_EU_KEY_VAULT");
+    public static final boolean USE_CLOUD_RESOURCES = parseBoolean(requiredPropOrEnv("use.cloud.resources", "false"));
     public static final String BLOB_STORE_ENDPOINT_TEMPLATE = "https://%s.blob.core.windows.net";
     public static final String KEY_VAULT_ENDPOINT_TEMPLATE = "https://%s.vault.azure.net";
 
     @Test
     public void transferBlob_success() {
-        BlobServiceClient blobServiceClient2 = getBlobServiceClient(DST_KEY_VAULT_NAME);
+
+        BlobServiceClient blobServiceClient2;
+        if (USE_CLOUD_RESOURCES) {
+            var destinationKeyVaultName = requiredPropOrEnv("consumer.eu.key.vault", null);
+            var blobAccountDetails = blobAccount(destinationKeyVaultName);
+            var storageAccountName = blobAccountDetails.get(0);
+            var storageAccountKey = blobAccountDetails.get(1);
+            blobServiceClient2 = getBlobServiceClient(
+                    format(BLOB_STORE_ENDPOINT_TEMPLATE, storageAccountName),
+                    storageAccountName,
+                    storageAccountKey
+            );
+        } else {
+            blobServiceClient2 = getBlobServiceClient(null, null, null);
+        }
+
 
         // Act
         System.setProperty(ACCOUNT_NAME_PROPERTY, blobServiceClient2.getAccountName());
@@ -62,8 +78,13 @@ public class BlobTransferIntegrationTest {
                 .isTrue();
     }
 
-    @NotNull
-    private BlobServiceClient getBlobServiceClient(String keyVaultName) {
+    /**
+     * Provides Blob storage account name and key.
+     *
+     * @param keyVaultName Key Vault name. This key vault must have storage account key secrets.
+     * @return storage account name and account key on first and second position of list.
+     */
+    private List<String> blobAccount(String keyVaultName) {
         var credential = new DefaultAzureCredentialBuilder().build();
         var vault = new SecretClientBuilder()
                 .vaultUrl(format(KEY_VAULT_ENDPOINT_TEMPLATE, keyVaultName))
@@ -75,11 +96,17 @@ public class BlobTransferIntegrationTest {
         );
         var accountKey = vault.getSecret(accountKeySecret.getName());
         var accountName = accountKeySecret.getName().replaceFirst("-key1$", "");
-        var blobServiceClient = new BlobServiceClientBuilder()
-                .endpoint(format(BLOB_STORE_ENDPOINT_TEMPLATE, accountName))
-                .credential(new StorageSharedKeyCredential(accountName, accountKey.getValue()))
+
+        return List.of(accountName, accountKey.getValue());
+    }
+
+    @NotNull
+    private BlobServiceClient getBlobServiceClient(String endpoint, String accountName, String accountKey) {
+
+        return new BlobServiceClientBuilder()
+                .endpoint(endpoint)
+                .credential(new StorageSharedKeyCredential(accountName, accountKey))
                 .buildClient();
-        return blobServiceClient;
     }
 
     private String getProvisionedContainerName() {
@@ -95,7 +122,5 @@ public class BlobTransferIntegrationTest {
                 .jsonPath().getString("[0].dataDestination.properties.container");
     }
 
-    private static String getEnv(String key) {
-        return Objects.requireNonNull(StringUtils.trimToNull(System.getenv(key)), key);
-    }
+
 }

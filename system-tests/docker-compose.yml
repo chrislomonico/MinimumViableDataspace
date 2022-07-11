@@ -9,7 +9,7 @@ services:
     environment:
       IDS_WEBHOOK_ADDRESS: http://provider:8282
       EDC_CONNECTOR_NAME: provider
-      EDC_IDENTITY_DID_URL: did:web:provider-did-server:provider
+      EDC_IDENTITY_DID_URL: did:web:did-server:provider
       EDC_VAULT: /resources/vault/provider/provider-vault.properties
       EDC_KEYSTORE: /resources/vault/provider/provider-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
@@ -18,7 +18,7 @@ services:
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
       REGISTRATION_SERVICE_API_URL: http://registration-service:8181/api
     depends_on:
-      - provider-did-server
+      - did-server
       - azurite
       - registration-service
     ports:
@@ -28,8 +28,8 @@ services:
     volumes:
       - ./resources:/resources
 
-  provider-did-server:
-    container_name: provider-did-server
+  did-server:
+    container_name: did-server
     image: nginx
     volumes:
       - ./resources/webdid:/usr/share/nginx/html
@@ -45,7 +45,7 @@ services:
     environment:
       IDS_WEBHOOK_ADDRESS: http://consumer-eu:8282
       EDC_CONNECTOR_NAME: consumer-eu
-      EDC_IDENTITY_DID_URL: did:web:consumer-eu-did-server:consumer-eu
+      EDC_IDENTITY_DID_URL: did:web:did-server:consumer-eu
       EDC_VAULT: /resources/vault/consumer-eu/consumer-eu-vault.properties
       EDC_KEYSTORE: /resources/vault/consumer-eu/consumer-eu-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
@@ -54,7 +54,7 @@ services:
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
       REGISTRATION_SERVICE_API_URL: http://registration-service:8181/api
     depends_on:
-      - consumer-eu-did-server
+      - did-server
       - azurite
       - registration-service
     ports:
@@ -63,14 +63,6 @@ services:
       - "5006:5006"
     volumes:
       - ./resources:/resources
-
-  consumer-eu-did-server:
-    container_name: consumer-eu-did-server
-    image: nginx
-    volumes:
-      - ./resources/webdid:/usr/share/nginx/html
-    ports:
-      - "7071:80"
 
   consumer-us:
     container_name: consumer-us
@@ -81,7 +73,7 @@ services:
     environment:
       IDS_WEBHOOK_ADDRESS: http://consumer-us:8282
       EDC_CONNECTOR_NAME: consumer-us
-      EDC_IDENTITY_DID_URL: did:web:consumer-us-did-server:consumer-us
+      EDC_IDENTITY_DID_URL: did:web:did-server:consumer-us
       EDC_VAULT: /resources/vault/consumer-us/consumer-us-vault.properties
       EDC_KEYSTORE: /resources/vault/consumer-us/consumer-us-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
@@ -90,7 +82,7 @@ services:
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
       REGISTRATION_SERVICE_API_URL: http://registration-service:8181/api
     depends_on:
-      - consumer-us-did-server
+      - did-server
       - azurite
       - registration-service
     ports:
@@ -99,14 +91,6 @@ services:
       - "5007:5007"
     volumes:
       - ./resources:/resources
-
-  consumer-us-did-server:
-    container_name: consumer-us-did-server
-    image: nginx
-    volumes:
-      - ./resources/webdid:/usr/share/nginx/html
-    ports:
-      - "7072:80"
 
   newman:
     container_name: newman
