@@ -14,6 +14,7 @@ services:
       EDC_KEYSTORE: /resources/vault/provider/provider-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
       EDC_API_AUTH_KEY: ApiKeyDefaultValue
+      EDC_IAM_DID_WEB_USE_HTTPS: "false"
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
       REGISTRATION_SERVICE_API_URL: http://registration-service:8181/api
@@ -27,14 +28,6 @@ services:
       - "5005:5005"
     volumes:
       - ./resources:/resources
-
-  did-server:
-    container_name: did-server
-    image: nginx
-    volumes:
-      - ./resources/webdid:/usr/share/nginx/html
-    ports:
-      - "7070:80"
 
   consumer-eu:
     container_name: consumer-eu
@@ -50,6 +43,7 @@ services:
       EDC_KEYSTORE: /resources/vault/consumer-eu/consumer-eu-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
       EDC_API_AUTH_KEY: ApiKeyDefaultValue
+      EDC_IAM_DID_WEB_USE_HTTPS: "false"
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
       REGISTRATION_SERVICE_API_URL: http://registration-service:8181/api
@@ -78,6 +72,7 @@ services:
       EDC_KEYSTORE: /resources/vault/consumer-us/consumer-us-keystore.jks
       EDC_KEYSTORE_PASSWORD: test123
       EDC_API_AUTH_KEY: ApiKeyDefaultValue
+      EDC_IAM_DID_WEB_USE_HTTPS: "false"
       EDC_CATALOG_CACHE_EXECUTION_DELAY_SECONDS: 5
       EDC_CATALOG_CACHE_EXECUTION_PERIOD_SECONDS: 5
       REGISTRATION_SERVICE_API_URL: http://registration-service:8181/api
@@ -111,6 +106,14 @@ services:
         condition: service_healthy
       provider:
         condition: service_healthy
+
+  did-server:
+    container_name: did-server
+    image: nginx
+    volumes:
+      - ./resources/webdid:/usr/share/nginx/html
+    ports:
+      - "7070:80"
 
   azurite:
     container_name: azurite
