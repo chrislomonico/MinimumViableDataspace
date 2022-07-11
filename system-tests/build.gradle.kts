@@ -56,6 +56,5 @@ dependencies {
     testImplementation("${edcGroup}:contract-spi:${edcVersion}")
     testImplementation("${edcGroup}:federated-catalog-spi:${edcVersion}")
     testImplementation("${edcGroup}:policy-evaluator:${edcVersion}")
-    testImplementation(testFixtures("${edcGroup}:azure-test:${edcVersion}"))
 }
 
