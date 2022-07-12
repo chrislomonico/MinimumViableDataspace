@@ -129,7 +129,8 @@ services:
   registration-service:
     container_name: registration-service
     build:
-      context: ../../RegistrationService/launcher
+#e.g. /home/RegistrationService/launcher
+      context: "#UPDATE_REGISTRATION_SERVICE_LAUNCHER_PATH_HERE#"
       args:
         JVM_ARGS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008"
     environment:
