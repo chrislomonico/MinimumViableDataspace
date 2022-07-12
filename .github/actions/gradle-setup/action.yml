@@ -7,7 +7,7 @@ runs:
     - name: Checkout EDC
       uses: actions/checkout@v2
       with:
-        repository: agera/DataSpaceConnector
+        repository: agera-edc/DataSpaceConnector
         path: DataSpaceConnector
         ref: feature/56-mvd-local-ci
 
