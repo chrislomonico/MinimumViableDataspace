@@ -38,6 +38,7 @@ jobs:
       - name: 'Register participant'
         run: |
           mvn dependency:copy -Dartifact=org.eclipse.dataspaceconnector.registrationservice:registration-service-cli:1.0.0-SNAPSHOT:jar:all -DoutputDirectory=.
+          chmod +x system-tests/resources/register-participants.sh
           system-tests/resources/register-participants.sh
         working-directory: .
         env:
