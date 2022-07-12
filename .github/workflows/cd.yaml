@@ -16,8 +16,9 @@ jobs:
 
       - uses: ./.github/actions/gradle-setup
 
+      # Use EDC FileSystem vault for CI run.
       - name: 'Build launcher'
-        run: ./gradlew :launcher:shadowJar
+        run: ./gradlew -DuseFsVault="true" :launcher:shadowJar
 
       # Build Registration Service runtime JAR locally.
       # The result is a JAR file in launcher/build/libs.
