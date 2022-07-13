@@ -4,15 +4,15 @@ The test uses the key vault secret to connect to the storage accounts and copy a
 
 ### Building MVD project
 
-One of the MVD dependencies is the Registration Service REST client library. Registration Service is not published to any central artifactory yet so in local 
+One of the MVD dependencies is the Registration Service REST client library. Registration Service is not published to any central artifactory yet so in local
 development we have to use locally published dependencies.
 
 #### Publish Registration Service to local Maven
 
-Checkout [Registration Service repository](https://github.com/agera-edc/RegistrationService). 
+Checkout [Registration Service repository](https://github.com/agera-edc/RegistrationService).
 
-Publish Registration Service libraries to local Maven artifactory by executing gradle command `./gradlew publishToMavenLocal` from Registration Service root 
-folder. 
+Publish Registration Service libraries to local Maven artifactory by executing gradle command `./gradlew publishToMavenLocal` from Registration Service root
+folder.
 
 ### Running test locally
 
@@ -53,7 +53,7 @@ CONSUMER_EU_KEY_VAULT="$CONSUMER_EU_KEY_VAULT" CONSUMER_US_KEY_VAULT="$CONSUMER_
 
 ### Debugging MVD locally
 
-Follow the instructions in the previous sections to run an MVD with a consumer and provider locally using docker-compose. 
+Follow the instructions in the previous sections to run an MVD with a consumer and provider locally using docker-compose.
 
 Once running, you can use a Java debugger to connect to the consumer (port 5006) and provider (port 5005) instances. If you are using IntelliJ you can use the provided "EDC consumer" or "EDC provider" [runtime configurations](../.run) to remote debug the connector instances.
 
