@@ -68,7 +68,26 @@ First please make sure that you are able to build MVD locally as described in [B
     ./gradlew :system-tests:test
     ```
 
+- [Storage Explorer](https://azure.microsoft.com/features/storage-explorer/) can be used to connect to Azurite storage container on `127.0.0.1:10000` port and under `consumereuassets` account transferred blob can be viewed.
+
 #### Local test resources
+
+Following test resources are provided in order to run MVD locally.`system-tests/docker-compose.yml` usages it to start MVD.
+
+- Each EDC Connector has its own set of Private and Public keys with java keystore e.g. `system-tests/resources/provider`.
+
+    ```bash
+    # generate a private key
+    openssl ecparam -name prime256v1 -genkey -noout -out private-key.pem
+    # generate corresponding public key
+    openssl ec -in private-key.pem -pubout -out public-key.pem
+    # create a self-signed certificate
+    openssl req -new -x509 -key private-key.pem -out cert.pem -days 360
+    ```
+
+- Generated keys are imported to keystores e.g. `system-tests/resources/provider/provider-keystore.jks`. Each keystore has password `test123`.[KeyStore Explorer](https://keystore-explorer.org/) can be used to manage keystores from UI.
+
+- MVD local instance usage EDC File System Vault and its keys are managed using a java properties file e.g.`system-tests/resources/provider/provider-vault.properties`. *File System Vault is NOT a secure vault and thus should only be used for testing purposes*
 
 ### Debugging MVD locally
 
