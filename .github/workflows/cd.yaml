@@ -49,7 +49,7 @@ jobs:
         run: ./gradlew test
         timeout-minutes: 10
         env:
-          USE_CLOUD_RESOURCES: "false"
+          LOCAL_BLOB_TRANSFER_TEST: "true"
 
       - name: 'docker-compose logs'
         run: docker-compose -f system-tests/docker-compose.yml logs

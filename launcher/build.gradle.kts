@@ -49,7 +49,7 @@ dependencies {
     // Blob storage container provisioning
     implementation("${edcGroup}:blobstorage:${edcVersion}")
     // To use FileSystem vault e.g. -DuseFsVault="true".Only for non-production usages.
-    val useFsVault: Boolean = System.getProperty("useFsVault", "false").toBoolean();
+    val useFsVault: Boolean = System.getProperty("useFsVault", "false").toBoolean()
     if (useFsVault) {
         implementation("${edcGroup}:filesystem-vault:${edcVersion}")
     } else {
