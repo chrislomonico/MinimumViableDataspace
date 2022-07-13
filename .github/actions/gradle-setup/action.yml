@@ -18,6 +18,15 @@ runs:
         path: RegistrationService
         ref: ef045e3b6556bf1b1148536a1be30d564fd56bf6
 
+    - name: Checkout Identity Hub
+      uses: actions/checkout@v2
+      with:
+        # TODO: switch to upstream repository once changes are merged
+        #repository: eclipse-dataspaceconnector/IdentityHub
+        repository: agera-edc/IdentityHub
+        path: IdentityHub
+        ref: 4e9249b17541827d94711803e7fa3732a36c13fe
+
     # Install Java and cache MVD Gradle build.
     - uses: actions/setup-java@v2
       with:
@@ -62,3 +71,12 @@ runs:
     - name: Move Registration Service packages out of build directory
       run: mv RegistrationService ${{ runner.temp }}
       shell: bash
+
+    # Install Registration Service packages into ~/.m2.
+    # This action only runs if the packages could not be restored from the cache.
+     - name: Build Identity Hub packages
+       run: |
+         ./gradlew publishToMavenLocal -Pskip.signing
+       if: steps.cache.outputs.cache-hit != 'true' # only on cache miss
+       shell: bash
+       working-directory: IdentityHub

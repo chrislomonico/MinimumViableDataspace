@@ -11,8 +11,8 @@ development we have to use locally published dependencies.
 
 Checkout [Registration Service repository](https://github.com/agera-edc/RegistrationService). 
 
-Publish Registration Service libraries to local Maven artifactory by executing gradle command `./gradlew publishToMavenLocal` from Registration Service root 
-folder. 
+Publish Registration Service and Identity Hub libraries to local Maven artifactory by executing gradle command `./gradlew publishToMavenLocal` from Registration Service and Identity Hub root 
+folders. 
 
 ### Running test locally
 

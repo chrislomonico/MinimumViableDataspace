@@ -18,4 +18,10 @@ allprojects {
             showStandardStreams = true
         }
     }
+
+    configurations {
+        all {
+            exclude(group = "com.fasterxml.jackson.jaxrs", module = "jackson-jaxrs-json-provider")
+        }
+    }
 }
