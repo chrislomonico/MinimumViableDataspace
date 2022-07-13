@@ -28,13 +28,13 @@ import static org.eclipse.dataspaceconnector.system.tests.utils.TestUtils.requir
 
 @EnabledIfEnvironmentVariable(named = "CLOUD_BLOB_TRANSFER_TEST", matches = "true")
 public class CloudBlobTransferIntegrationTest extends AbstractBlobTransferTest {
-    public static final String BLOB_STORE_ENDPOINT_TEMPLATE = "https://%s.blob.core.windows.net";
-    public static final String KEY_VAULT_ENDPOINT_TEMPLATE = "https://%s.vault.azure.net";
+    private static final String DST_KEY_VAULT_NAME = requiredPropOrEnv("consumer.eu.key.vault", null);
+    private static final String BLOB_STORE_ENDPOINT_TEMPLATE = "https://%s.blob.core.windows.net";
+    private static final String KEY_VAULT_ENDPOINT_TEMPLATE = "https://%s.vault.azure.net";
 
     @Test
     public void transferBlob_success() {
-        var destinationKeyVaultName = requiredPropOrEnv("consumer.eu.key.vault", null);
-        var blobAccountDetails = blobAccount(destinationKeyVaultName);
+        var blobAccountDetails = blobAccount(DST_KEY_VAULT_NAME);
         var storageAccountName = blobAccountDetails.get(0);
         var storageAccountKey = blobAccountDetails.get(1);
         var dstBlobServiceClient = getBlobServiceClient(
