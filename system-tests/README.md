@@ -1,55 +1,74 @@
 ## System tests
 
-The test uses the key vault secret to connect to the storage accounts and copy a file from provider to consumer storage account.
+The test copy a file from provider to consumer blob storage account.
 
 ### Building MVD project
 
-One of the MVD dependencies is the Registration Service REST client library. Registration Service is not published to any central artifactory yet so in local
-development we have to use locally published dependencies.
+MVD dependencies are Eclipse DataSpaceConnector(EDC) and Registration Service. Both of these dependencies are not published to any central artifactory yet so in local
+development we have to use locally published dependencies, once this is done MVD can be build using
 
-#### Publish Registration Service to local Maven
+```bash
+./gradlew build
+```
 
-Checkout [Registration Service repository](https://github.com/agera-edc/RegistrationService).
+#### Publish EDC and Registration Service to local Maven
+
+Checkout [Eclipse DataSpaceConnector repository](https://github.com/eclipse-dataspaceconnector/DataSpaceConnector).
+
+Publish EDC libraries to local Maven artifactory by executing gradle command `./gradlew publishToMavenLocal -Pskip.signing` from EDC root
+folder.
+
+Checkout [Registration Service repository](https://github.com/eclipse-dataspaceconnector/RegistrationService).
 
 Publish Registration Service libraries to local Maven artifactory by executing gradle command `./gradlew publishToMavenLocal` from Registration Service root
 folder.
 
 ### Running test locally
 
-Deploy MVD using the GitHub `Deploy` pipeline. We will run EDC instances locally, connected to the storage accounts and key vaults deployed on Azure.
+MVD System tests can be executed locally against a local MVD instance. MVD runs three EDC Connectors and one Registration Service.
 
-From the build result, download the artifact named `testing-configuration` and extract the file `.env` into the `system-tests` directory (note that the file could be hidden in your file explorer due to its prefix).
+First please make sure that you are able to build MVD locally as described in [Building MVD project](#building-mvd-project) section.
 
-In the file, add the application client secret value under the `APP_CLIENT_SECRET` key. It is used to access Key Vault.
+- We need to build EDC Connector launcher and Registration Service launcher.
+- Go to EDC root folder. And execute
 
-Build the EDC launcher:
+    ```bash
+    ./gradlew -DuseFsVault="true" :launcher:shadowJar
+    ```
 
-```
-./gradlew :launcher:shadowJar
-```
+- Go to Registration service root folder. And execute
 
-Run EDC consumer, provider and data seeding:
+    ```bash
+    ./gradlew :launcher:shadowJar
+    ```
 
-```
-docker-compose -f system-tests/docker-compose.yml up --build
-```
+- Update Registration service launcher path in `system-tests/docker-compose.yml` file. Look for section `#UPDATE_REGISTRATION_SERVICE_LAUNCHER_PATH_HERE#` and update it e.g. `/home/user/RegistrationService/launcher`.
 
-In the commands below, adapt the variable values marked with `$` to use the value from the `.env` file.
+- Start MVD using docker-compose.yml file.
 
-Login in to Azure:
-```
-az login --service-principal --user "$APP_CLIENT_ID" --password "$APP_CLIENT_SECRET" --tenant "$APP_TENANT_ID"
-```
+    ```bash
+    docker-compose -f system-tests/docker-compose.yml up --build
+    ```
 
-| ℹ️ Information                                                |
-| :----------------------------------------------------------- |
-| You could also login interactively with your user identity (`az login`), and [grant yourself at least the *Key Vault Secrets User*](https://docs.microsoft.com/azure/key-vault/general/rbac-guide) role to the Key Vault below. A good option is to grant the *Key Vault Secrets Officer* at the subscription level to the whole development team, so they can read and write secrets on MVD deployments as needed. |
+- This will start three EDC Connectors, one Registration Service, one HTTP Nginx Server to serve DIDs, Azurite blob storage service and also will seed initial required data using a [postman collection](../deployment/data/MVD.postman_collection.json).
 
-Run tests:
+- `newman` docker container will automatically stop after seeding initial data from postman scripts.
 
-```
-CONSUMER_EU_KEY_VAULT="$CONSUMER_EU_KEY_VAULT" CONSUMER_US_KEY_VAULT="$CONSUMER_US_KEY_VAULT" ./gradlew :system-tests:test
-```
+- EDC Connectors needs to be registered using Registration Service CLI client jar. This client jar must be available under `RegistrationService-Root/client-cli/build/libs` folder.
+
+    ```bash
+    export REGISTRATION_SERVICE_CLI_JAR_PATH=registration service client jar path
+    system-tests/resources/register-participants.sh
+    ```
+
+- Run MVD system tests, and for that environment variable `LOCAL_BLOB_TRANSFER_TEST` must be set to `true` to enable local blob transfer test.
+
+    ```bash
+    export LOCAL_BLOB_TRANSFER_TEST=true
+    ./gradlew :system-tests:test
+    ```
+
+#### Local test resources
 
 ### Debugging MVD locally
 
