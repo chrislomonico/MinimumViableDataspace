@@ -25,7 +25,7 @@ runs:
         #repository: eclipse-dataspaceconnector/IdentityHub
         repository: agera-edc/IdentityHub
         path: IdentityHub
-        ref: bdb70d870a9f95f4c03b511d2dc6e7a37fd27031
+        ref: 77aa4007987aed1a7080aa58211147a66f62fc20
 
     # Install Java and cache MVD Gradle build.
     - uses: actions/setup-java@v2
