@@ -54,7 +54,7 @@ First please make sure that you are able to build MVD locally as described in [B
 
 - `newman` docker container will automatically stop after seeding initial data from postman scripts.
 
-- EDC Connectors needs to be registered using Registration Service CLI client jar. This client jar must be available under `RegistrationService-Root/client-cli/build/libs` folder.
+- EDC Connectors needs to be registered using Registration Service CLI client jar. After publishing RegistrationService locally the client jar should be available under `RegistrationService-Root/client-cli/build/libs` folder.
 
     ```bash
     export REGISTRATION_SERVICE_CLI_JAR_PATH=registration service client jar path
