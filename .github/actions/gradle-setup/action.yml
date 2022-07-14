@@ -72,7 +72,7 @@ runs:
       run: mv RegistrationService ${{ runner.temp }}
       shell: bash
 
-    # Install Registration Service packages into ~/.m2.
+    # Install Identity Hub packages into ~/.m2.
     # This action only runs if the packages could not be restored from the cache.
     - name: Build Identity Hub packages
       run: |
