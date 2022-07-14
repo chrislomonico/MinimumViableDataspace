@@ -8,7 +8,7 @@ MVD dependencies are Eclipse DataSpaceConnector(EDC) and Registration Service. B
 development we have to use locally published dependencies, once this is done MVD can be build using
 
 ```bash
-./gradlew build
+./gradlew build -x test
 ```
 
 #### Publish EDC and Registration Service to local Maven
@@ -30,7 +30,7 @@ MVD System tests can be executed locally against a local MVD instance. MVD runs 
 First please make sure that you are able to build MVD locally as described in [Building MVD project](#building-mvd-project) section.
 
 - We need to build EDC Connector launcher and Registration Service launcher.
-- Go to EDC root folder. And execute
+- Go to MVD root folder. And execute
 
     ```bash
     ./gradlew -DuseFsVault="true" :launcher:shadowJar
