@@ -16,6 +16,8 @@ allprojects {
         useJUnitPlatform()
         testLogging {
             showStandardStreams = true
+            showExceptions = true
+            showStackTraces = true
         }
     }
 
