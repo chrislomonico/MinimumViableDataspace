@@ -63,8 +63,8 @@ dependencies {
     // Federated catalog
     implementation("${edcGroup}:catalog-cache:${edcVersion}")
 
-    // Identity Hub (temporarily removed for testing)
-    //implementation("${identityHubGroup}:identity-hub:${identityHubVersion}")
+    // Identity Hub
+    implementation("${identityHubGroup}:identity-hub:${identityHubVersion}")
 }
 
 application {
