@@ -386,6 +386,7 @@ jobs:
           CONSUMER_EU_IDENTITY_HUB_URL: http://${{ needs.Deploy-Participants.outputs.company2_edc_host }}:8181/api/identity-hub
           CONSUMER_US_IDENTITY_HUB_URL: http://${{ needs.Deploy-Participants.outputs.company3_edc_host }}:8181/api/identity-hub
           API_KEY: ${{ needs.Deploy-Participants.outputs.company2_api_key }}
+          AZURE_LOG_LEVEL: "verbose"
 
   # Verify docker-compose setup for local testing
   VerifyLocalTests:
