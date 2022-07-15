@@ -16,14 +16,6 @@ allprojects {
         useJUnitPlatform()
         testLogging {
             showStandardStreams = true
-            showExceptions = true
-            showStackTraces = true
-        }
-    }
-
-    configurations {
-        all {
-            exclude(group = "com.fasterxml.jackson.jaxrs", module = "jackson-jaxrs-json-provider")
         }
     }
 }
