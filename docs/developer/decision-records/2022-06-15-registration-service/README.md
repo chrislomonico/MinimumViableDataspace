@@ -52,7 +52,7 @@ In simple scenarios, enrollment could be fast and fully automated. However, in a
 
 #### Post-conditions
 
-1. The _Company1_ Identity Hub contains a VC (X.509 certificate) signed by _the Dataspace Authority_, that establishes membership in _Dataspace D_. This is used by other participants to authorize requests from _Company1_.
+1. The _Company1_ Identity Hub contains a VC signed by _the Dataspace Authority_, that establishes membership in _Dataspace D_. This is used by other participants to authorize requests from _Company1_.
 2. The _Company1_ DID URL is stored in the Registration Service Participants Store. This is used to serve participant requests.
 
 #### Flow sequence
@@ -69,7 +69,7 @@ In simple scenarios, enrollment could be fast and fully automated. However, in a
 5. The Registration Service stores participant information in its store. This includes Company 1's DID URL.
 6. The Registration Service authorizes the request by applying the Dataspace enrollment policy on the obtained Verifiable Credentials.
 7. The Registration Service updates the status of the participant's membership indicating that the participant's onboarding is successful/failed.
-8. The Registration Service issues and signs a membership Verifiable Credential as an X.509 Certificate.
+8. The Registration Service issues and signs a membership Verifiable Credential.
 9. The Registration Service sends the Verifiable Credential to _Company1's_ Identity Hub for storage. It uses the Identity Hub bearer token (from the Distributed authorization
    sub-flow) to authenticate the request.
 10. _Company1's_ Identity Hub validates the bearer token and stores the membership Verifiable Credential.
@@ -79,12 +79,12 @@ In simple scenarios, enrollment could be fast and fully automated. However, in a
 #### Participants
 
 1. _Company1_, a Dataspace Participant with a Dataspace Connector (e.g. EDC application) that wants to discover IDS endpoints (e.g. in order to list contract offers)
-2. _The Dataspace Authority_, which manages the participant registry
+2. _The Dataspace Authority_, which manages Dataspace memberships
 3. _Company2_, _Company3_, etc., Dataspace Participants
 
 #### Overview
 
-A typical EDC deployment caches contract offers from other participants in a federated catalog, so that users can quickly browse and negotiate contracts. To regularly retrieve offers, it regularly contacts the Dataspace Registry to refresh its list of Dataspace Participants, then obtains contract offers from each participants to refresh its cache.
+A typical EDC deployment caches contract offers from other participants in a federated catalog, so that users can quickly browse and negotiate contracts. To regularly retrieve offers, it regularly contacts the Registration Service to refresh its list of Dataspace Participants, then obtains contract offers from each participants to refresh its cache.
 
 In this flow, the EDC for _Company1_ obtains a list of Dataspace Participants and resolves their IDS endpoints.
 
@@ -96,12 +96,12 @@ Participants are registered as (currently valid) Dataspace Participants
 
 ![list-participants](list-participants.png)
 
-1. The EDC for _Company1_ determines the Dataspace Registry endpoint from the Dataspace DID Document.
-2. The EDC for _Company1_ issues a request to the Dataspace Registry, to list participants.
+1. The EDC for _Company1_ determines the Registration Service endpoint from the Dataspace DID Document.
+2. The EDC for _Company1_ issues a request to the Registration Service, to list participants.
 3. The Registration Service uses the [Distributed authorization sub-flow](../2022-06-16-distributed-authorization/README.md) to authenticate the 
    request...
 4. ... and retrieves Verifiable Presentations from _Company1's_ Identity Hub.
-5. The Registration Service authorizes the request by applying the Registry access policy on the obtained Verifiable Presentations. For example, the caller must be a valid
+5. The Registration Service authorizes the request by applying the access policy on the obtained Verifiable Presentations. For example, the caller must be a valid
    Dataspace Participant.
 6. The Registration Service obtains the list of Dataspace Participant DID URIs from its storage...
 7. ... and returns it synchronously to the caller (_Company1_ EDC).
