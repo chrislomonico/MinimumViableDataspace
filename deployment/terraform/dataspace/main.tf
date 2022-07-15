@@ -40,8 +40,10 @@ locals {
   registration_service_dns_label = "${var.prefix}-registration-mvd"
   edc_default_port               = 8181
 
-  dataspace_did_url = "did:web:${azurerm_storage_account.dataspace_did.primary_web_host}"
-  gaiax_did_url     = "did:web:${azurerm_storage_account.gaiax_did.primary_web_host}"
+  dataspace_did_uri = "did:web:${azurerm_storage_account.dataspace_did.primary_web_host}"
+  gaiax_did_uri     = "did:web:${azurerm_storage_account.gaiax_did.primary_web_host}"
+
+  registration_service_url = "http://${azurerm_container_group.registration-service.fqdn}:${local.edc_default_port}"
 }
 
 resource "azurerm_resource_group" "dataspace" {
@@ -151,11 +153,18 @@ resource "azurerm_storage_blob" "dataspace_did" {
   storage_container_name = "$web" # container used to serve static files (see static_website property on storage account)
   type                   = "Block"
   source_content = jsonencode({
-    id = local.dataspace_did_url
+    id = local.dataspace_did_uri
     "@context" = [
       "https://www.w3.org/ns/did/v1",
       {
-        "@base" = local.dataspace_did_url
+        "@base" = local.dataspace_did_uri
+      }
+    ],
+    "service" : [
+      {
+        "id" : "#enrollment-url",
+        "type" : "EnrollmentUrl",
+        "serviceEndpoint" : "${local.registration_service_url}/api"
       }
     ],
     "verificationMethod" = [
@@ -191,11 +200,11 @@ resource "azurerm_storage_blob" "gaiax_did" {
   storage_container_name = "$web" # container used to serve static files (see static_website property on storage account)
   type                   = "Block"
   source_content = jsonencode({
-    id = local.gaiax_did_url
+    id = local.gaiax_did_uri
     "@context" = [
       "https://www.w3.org/ns/did/v1",
       {
-        "@base" = local.gaiax_did_url
+        "@base" = local.gaiax_did_uri
       }
     ],
     "verificationMethod" = [
