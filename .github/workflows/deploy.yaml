@@ -446,6 +446,7 @@ jobs:
         env:
           CONSUMER_EU_KEY_VAULT: ${{ needs.Deploy-Participants.outputs.company2_key_vault }}
           CONSUMER_US_KEY_VAULT: ${{ needs.Deploy-Participants.outputs.company3_key_vault }}
+          AZURE_LOG_LEVEL: "verbose"
 
       - name: 'docker-compose logs'
         run: docker-compose -f system-tests/docker-compose.yml logs
