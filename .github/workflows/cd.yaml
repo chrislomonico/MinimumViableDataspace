@@ -50,3 +50,5 @@ jobs:
       - name: 'docker-compose logs'
         run: docker-compose -f system-tests/docker-compose.yml logs
         if: always()
+        env:
+          REGISTRATION_SERVICE_LAUNCHER_PATH: ${{ runner.temp }}/RegistrationService/launcher
