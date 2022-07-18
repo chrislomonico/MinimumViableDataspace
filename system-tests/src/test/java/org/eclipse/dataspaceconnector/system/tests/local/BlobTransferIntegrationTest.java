@@ -18,6 +18,7 @@ package org.eclipse.dataspaceconnector.system.tests.local;
 
 import com.azure.core.credential.TokenRequestContext;
 import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.identity.EnvironmentCredential;
 import com.azure.security.keyvault.secrets.SecretClientBuilder;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
