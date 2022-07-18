@@ -18,6 +18,7 @@ package org.eclipse.dataspaceconnector.system.tests.local;
 
 import com.azure.core.credential.TokenRequestContext;
 import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.identity.EnvironmentCredential;
 import com.azure.security.keyvault.secrets.SecretClientBuilder;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
@@ -66,7 +67,7 @@ public class BlobTransferIntegrationTest {
     @NotNull
     private BlobServiceClient getBlobServiceClient(String keyVaultName) {
         var credential = new DefaultAzureCredentialBuilder().build();
-        System.out.println("/// 4 " + credential.getToken(new TokenRequestContext().addScopes("https://management.azure.com/.default")).block().getToken());
+        // System.out.println("/// 4 " + credential.getToken(new TokenRequestContext().addScopes("https://management.azure.com/.default")).block().getToken());
         var vault = new SecretClientBuilder()
                 .vaultUrl(format(KEY_VAULT_ENDPOINT_TEMPLATE, keyVaultName))
                 .credential(credential)
