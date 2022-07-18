@@ -42,11 +42,10 @@ First please make sure that you are able to build MVD locally as described in [B
     ./gradlew :launcher:shadowJar
     ```
 
-- Update Registration service launcher path in `system-tests/docker-compose.yml` file. Look for section `#UPDATE_REGISTRATION_SERVICE_LAUNCHER_PATH_HERE#` and update it e.g. `/home/user/RegistrationService/launcher`.
-
 - Start MVD using docker-compose.yml file.
 
     ```bash
+    export REGISTRATION_SERVICE_LAUNCHER_PATH=Registration service launcher path e.g. `/home/user/RegistrationService/launcher`.
     docker-compose -f system-tests/docker-compose.yml up --build
     ```
 
@@ -58,13 +57,13 @@ First please make sure that you are able to build MVD locally as described in [B
 
     ```bash
     export REGISTRATION_SERVICE_CLI_JAR_PATH=registration service client jar path
-    system-tests/resources/register-participants.sh
+    ./system-tests/resources/register-participants.sh
     ```
 
-- Run MVD system tests, and for that environment variable `LOCAL_BLOB_TRANSFER_TEST` must be set to `true` to enable local blob transfer test.
+- Run MVD system tests, and for that environment variable `TEST_ENVIRONMENT` must be set to `local` to enable local blob transfer test.
 
     ```bash
-    export LOCAL_BLOB_TRANSFER_TEST=true
+    export TEST_ENVIRONMENT=local
     ./gradlew :system-tests:test
     ```
 

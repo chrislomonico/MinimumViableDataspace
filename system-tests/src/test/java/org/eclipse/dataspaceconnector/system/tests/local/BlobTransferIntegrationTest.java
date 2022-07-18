@@ -33,7 +33,7 @@ import static org.eclipse.dataspaceconnector.system.tests.utils.TransferSimulati
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@EnabledIfEnvironmentVariable(named = "LOCAL_BLOB_TRANSFER_TEST", matches = "true")
+@EnabledIfEnvironmentVariable(named = "TEST_ENVIRONMENT", matches = "local")
 public class BlobTransferIntegrationTest extends AbstractBlobTransferTest {
     private List<Runnable> containerCleanup = new ArrayList<>();
     private static final String PROVIDER_CONTAINER_NAME = "src-container";

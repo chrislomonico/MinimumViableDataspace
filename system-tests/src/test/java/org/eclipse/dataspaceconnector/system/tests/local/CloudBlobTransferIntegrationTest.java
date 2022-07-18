@@ -26,7 +26,7 @@ import java.util.List;
 import static java.lang.String.format;
 import static org.eclipse.dataspaceconnector.system.tests.utils.TestUtils.requiredPropOrEnv;
 
-@EnabledIfEnvironmentVariable(named = "CLOUD_BLOB_TRANSFER_TEST", matches = "true")
+@EnabledIfEnvironmentVariable(named = "TEST_ENVIRONMENT", matches = "cloud")
 public class CloudBlobTransferIntegrationTest extends AbstractBlobTransferTest {
     private static final String DST_KEY_VAULT_NAME = requiredPropOrEnv("consumer.eu.key.vault", null);
     private static final String BLOB_STORE_ENDPOINT_TEMPLATE = "https://%s.blob.core.windows.net";
