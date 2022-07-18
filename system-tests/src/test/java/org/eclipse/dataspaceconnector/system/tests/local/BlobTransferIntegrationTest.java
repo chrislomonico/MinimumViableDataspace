@@ -71,6 +71,7 @@ public class BlobTransferIntegrationTest {
                 .vaultUrl(format(KEY_VAULT_ENDPOINT_TEMPLATE, keyVaultName))
                 .credential(credential)
                 .buildClient();
+        
         // Find the first account with a key in the key vault
         var accountKeySecret = vault.listPropertiesOfSecrets().stream().filter(s -> s.getName().endsWith("-key1")).findFirst().orElseThrow(
                 () -> new AssertionError("Key vault " + keyVaultName + " should contain the storage account key")
