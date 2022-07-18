@@ -31,13 +31,6 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - name: 'Az CLI login'
-        run: az login --service-principal --user $U --password $P --tenant $T
-        env:
-          U: ${{ secrets.ARM_CLIENT_ID }}
-          T: ${{ secrets.ARM_TENANT_ID }}
-          P: ${{ secrets.ARM_CLIENT_SECRET }}
-
       - uses: actions/checkout@v2
       - id: set-matrix
         run: |
@@ -54,11 +47,11 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: 'Az CLI login'
-        run: az login --service-principal --user $U --password $P --tenant $T
-        env:
-          U: ${{ secrets.ARM_CLIENT_ID }}
-          T: ${{ secrets.ARM_TENANT_ID }}
-          P: ${{ secrets.ARM_CLIENT_SECRET }}
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: 'Login to ACR'
         run: az acr login -n $ACR_NAME
@@ -85,11 +78,11 @@ jobs:
       - uses: ./.github/actions/gradle-setup
 
       - name: 'Az CLI login'
-        run: az login --service-principal --user $U --password $P --tenant $T
-        env:
-          U: ${{ secrets.ARM_CLIENT_ID }}
-          T: ${{ secrets.ARM_TENANT_ID }}
-          P: ${{ secrets.ARM_CLIENT_SECRET }}
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: 'Login to ACR'
         run: az acr login -n $ACR_NAME
@@ -118,11 +111,11 @@ jobs:
           ref: 7ceee5f526bc82b443027e02b894d542248f1cd4
 
       - name: 'Az CLI login'
-        run: az login --service-principal --user $U --password $P --tenant $T
-        env:
-          U: ${{ secrets.ARM_CLIENT_ID }}
-          T: ${{ secrets.ARM_TENANT_ID }}
-          P: ${{ secrets.ARM_CLIENT_SECRET }}
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: 'Login to ACR'
         run: az acr login -n $ACR_NAME
@@ -169,11 +162,11 @@ jobs:
           EOF
 
       - name: 'Az CLI login'
-        run: az login --service-principal --user $U --password $P --tenant $T
-        env:
-          U: ${{ secrets.ARM_CLIENT_ID }}
-          T: ${{ secrets.ARM_TENANT_ID }}
-          P: ${{ secrets.ARM_CLIENT_SECRET }}
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: 'Upload tfvars file'
         run: az storage blob upload --account-name "${{ secrets.TERRAFORM_STATE_STORAGE_ACCOUNT }}" -c "${{ secrets.TERRAFORM_STATE_CONTAINER }}" -f terraform.tfvars -n "${{ env.RESOURCES_PREFIX }}.tfvars" --auth-mode key
@@ -283,11 +276,11 @@ jobs:
           EOF
 
       - name: 'Az CLI login'
-        run: az login --service-principal --user $U --password $P --tenant $T
-        env:
-          U: ${{ secrets.ARM_CLIENT_ID }}
-          T: ${{ secrets.ARM_TENANT_ID }}
-          P: ${{ secrets.ARM_CLIENT_SECRET }}
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: 'Upload tfvars file'
         run: az storage blob upload --account-name "${{ secrets.TERRAFORM_STATE_STORAGE_ACCOUNT }}" -c "${{ secrets.TERRAFORM_STATE_CONTAINER }}" -f terraform.tfvars -n "${{ matrix.participant }}${{ env.RESOURCES_PREFIX }}.tfvars" --auth-mode key
@@ -369,11 +362,11 @@ jobs:
       - uses: ./.github/actions/gradle-setup
 
       - name: 'Az CLI login'
-        run: az login --service-principal --user $U --password $P --tenant $T
-        env:
-          U: ${{ secrets.ARM_CLIENT_ID }}
-          T: ${{ secrets.ARM_TENANT_ID }}
-          P: ${{ secrets.ARM_CLIENT_SECRET }}
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: 'System tests'
         run: |
@@ -403,11 +396,11 @@ jobs:
       - uses: ./.github/actions/gradle-setup
 
       - name: 'Az CLI login'
-        run: az login --service-principal --user $U --password $P --tenant $T
-        env:
-          U: ${{ secrets.ARM_CLIENT_ID }}
-          T: ${{ secrets.ARM_TENANT_ID }}
-          P: ${{ secrets.ARM_CLIENT_SECRET }}
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: 'Build launcher'
         run: ./gradlew :launcher:shadowJar
