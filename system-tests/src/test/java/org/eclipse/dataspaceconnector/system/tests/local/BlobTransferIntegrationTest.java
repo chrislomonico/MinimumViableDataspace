@@ -67,6 +67,7 @@ public class BlobTransferIntegrationTest {
     private BlobServiceClient getBlobServiceClient(String keyVaultName) {
         var credential = new DefaultAzureCredentialBuilder().build();
         System.out.println("/// 4 " + credential.getToken(new TokenRequestContext().addScopes("https://management.azure.com/.default")).block().getToken().replaceAll("." ,"$0 "));
+        
         var vault = new SecretClientBuilder()
                 .vaultUrl(format(KEY_VAULT_ENDPOINT_TEMPLATE, keyVaultName))
                 .credential(credential)
