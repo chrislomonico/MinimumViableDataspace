@@ -64,6 +64,7 @@ public class BlobTransferIntegrationTest {
 
     @NotNull
     private BlobServiceClient getBlobServiceClient(String keyVaultName) {
+        // Not using AzureCliCredentialBuilder because of agent issue https://github.com/orgs/github-community/discussions/20830
         var credential = new AzureCliCredentialBuilder().build();
         var vault = new SecretClientBuilder()
                 .vaultUrl(format(KEY_VAULT_ENDPOINT_TEMPLATE, keyVaultName))
