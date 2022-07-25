@@ -220,6 +220,7 @@ jobs:
           name: ${{ steps.runterraform.outputs.connector_name }}
           vault: ${{ steps.runterraform.outputs.key_vault }}
 
+      # To support --retry-all-errors flag at least curl version 7.71.0 is required.
       - name: 'Upgrade Curl'
         run: sudo -E bash deployment/curl-upgrade.sh
         working-directory: .
@@ -376,6 +377,7 @@ jobs:
       - name: 'Upload inbox storage account key as vault secret'
         run: az keyvault secret set --name "$INBOX_STORAGE_ACCOUNT-key1" --vault-name "$KEY_VAULT" --value "$INBOX_STORAGE_ACCOUNT_KEY" -o none
 
+      # To support --retry-all-errors flag at least curl version 7.71.0 is required.
       - name: 'Upgrade Curl'
         run: sudo -E bash deployment/curl-upgrade.sh
         working-directory: .
