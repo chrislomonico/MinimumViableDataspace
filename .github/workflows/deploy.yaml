@@ -221,8 +221,7 @@ jobs:
           vault: ${{ steps.runterraform.outputs.key_vault }}
 
       - name: 'Upgrade Curl'
-        run: |
-          sudo deployment/curl-upgrade.sh
+        run: sudo -E bash deployment/curl-upgrade.sh
         working-directory: .
         env:
           VERSION: 7.84.0
@@ -378,8 +377,7 @@ jobs:
         run: az keyvault secret set --name "$INBOX_STORAGE_ACCOUNT-key1" --vault-name "$KEY_VAULT" --value "$INBOX_STORAGE_ACCOUNT_KEY" -o none
 
       - name: 'Upgrade Curl'
-        run: |
-          sudo deployment/curl-upgrade.sh
+        run: sudo -E bash deployment/curl-upgrade.sh
         working-directory: .
         env:
           VERSION: 7.84.0
