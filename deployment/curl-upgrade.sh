@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-#Check installed version of Ubuntu
+# Check installed version of Ubuntu
 Var=$(lsb_release -r)
 NumOnly=$(cut -f2 <<< "$Var")
 
