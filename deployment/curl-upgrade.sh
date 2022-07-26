@@ -14,7 +14,7 @@ fi
 echo "Current installed version of cURL is: $(curl -V)"
 echo "Removing old curl..."
 apt remove -y curl && apt purge curl
-echo "Updateing apt cache..."
+echo "Updating apt cache..."
 apt-get update
 echo "Installing build-tools..."
 apt-get install -y libssl-dev autoconf libtool make
